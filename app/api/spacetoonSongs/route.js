@@ -58,10 +58,10 @@ export async function GET(req) {
 
     // فلترة الأغاني بناءً على اسم الأغنية إن وجد
     if (spacetoonSongName) {
-      spacetoonSongs = spacetoonSongs.filter((song) =>
-        song.spacetoonSongName
-          .toLowerCase()
-          .includes(spacetoonSongName.toLowerCase())
+      spacetoonSongs = spacetoonSongs.filter(
+        (song) =>
+          song.spacetoonSongName.toLowerCase() ===
+          spacetoonSongName.toLowerCase()
       );
     }
 
