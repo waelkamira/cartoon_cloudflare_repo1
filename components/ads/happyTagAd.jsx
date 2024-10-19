@@ -29,16 +29,16 @@ const HtmlPage = ({ render = null }) => {
         // إذا تم إعادة التحميل، قم بتحميل الإعلان مباشرة بعد التغيير
         //! قمنا بتفعيل منطقتي اعلان لنفس الاعلان, الاول يعرض على مشغل الفيديو والثاني في صفحة المسلسل او الاغنية عند التحميل الاول لكلا الاعلانين
         const htmlString =
-          '<script async="async" data-cfasync="false" src="//thubanoa.com/1?z=8259372#"></script>';
+          '<script async="async" data-cfasync="false" src="//thubanoa.com/1?z=8259372000"></script>';
         setHtmlContent(htmlString);
-        loadScript('//thubanoa.com/1?z=8259372#');
+        loadScript('//thubanoa.com/1?z=8259372000');
       }
     } else {
       // قم بتحميل السكريبت الافتراضي عند عدم وجود render
       const htmlString =
-        '<script async="async" data-cfasync="false" src="//thubanoa.com/1?z=8259389#"></script>';
+        '<script async="async" data-cfasync="false" src="//thubanoa.com/1?z=8259389000"></script>';
       setHtmlContent(htmlString);
-      loadScript('//thubanoa.com/1?z=8259389#');
+      loadScript('//thubanoa.com/1?z=8259389000');
     }
   }, [render]);
   // // return <div>{parse(htmlContent)}</div>;

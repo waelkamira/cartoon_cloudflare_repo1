@@ -201,7 +201,6 @@ export default function SeriesAndEpisodes() {
                   {episode?.episodeName}
                   <HappyTagAd render={episode?.episodeName} />
                 </h1>
-                {/* <HappyTagAd render={episode.id} /> */}
 
                 <VideoPlayer
                   videoUrl={episode?.episodeLink}
