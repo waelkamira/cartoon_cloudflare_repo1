@@ -10,6 +10,8 @@ import SpacetoonSongs from '../../components/spacetoonSongs';
 import HappyTagAd from '../../components/ads/happyTagAd';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
 import VideoPlayer from '../../components/VideoPlayer';
+import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
+import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
@@ -101,6 +103,8 @@ export default function Page() {
                     className=" flex flex-col items-center justify-center rounded-lg overflow-hidden w-full"
                     key={item.spacetoonSongLink}
                   >
+                    <ExoclickOutStreamVideo />
+
                     <VideoPlayer
                       videoUrl={item.spacetoonSongLink}
                       image={item?.spacetoonSongImage}
@@ -112,6 +116,7 @@ export default function Page() {
           </div>
         </div>
       </div>
+      <ExoclickVideoSlider />
       <SpacetoonSongs vertical={true} title={false} image={false} />
       <div className="p-2">
         <ContactUs />

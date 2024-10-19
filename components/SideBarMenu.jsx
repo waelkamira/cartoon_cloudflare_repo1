@@ -12,15 +12,15 @@ export default function SideBarMenu({ setIsOpen }) {
 
   return (
     <div
-      className="absolute w-full h-screen border top-0 z-50 right-0"
+      className="relative w-screen h-screen z-50 right-0"
       onClick={() => setIsOpen(false)}
     >
       <div
-        className="w-64 bg-white z-50 right-0 h-screen overflow-y-auto"
+        className="absolute w-64 bg-white z-50 right-0 -top-10 h-screen overflow-y-auto "
         onClick={(e) => e.stopPropagation()}
       >
         <div className="sticky top-0 w-full z-50">
-          <div className="flex justify-center items-center w-full cursor-pointer line-clamp-2 bg-one">
+          <div className="flex justify-center items-center w-full cursor-pointer bg-one">
             <div className="relative size-20 my-2">
               <Image
                 priority

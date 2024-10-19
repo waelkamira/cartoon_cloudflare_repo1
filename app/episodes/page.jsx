@@ -9,6 +9,8 @@ import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import HappyTagAd from '../../components/ads/happyTagAd';
+import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
+import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
 
 export default function Page() {
   const [episodes, setEpisodes] = useState([]);
@@ -215,6 +217,8 @@ overflow-y-auto"
                   <h1 className="text-white text-center p-2">
                     {episode?.episodeName}
                   </h1>
+                  <ExoclickOutStreamVideo />
+
                   <VideoPlayer
                     videoUrl={episode?.episodeLink}
                     image={episodeImage}
@@ -239,6 +243,7 @@ overflow-y-auto"
                     الحلقة السابقة
                   </button>
                 </div>
+                <ExoclickVideoSlider />
               </div>
             ))}
           </div>

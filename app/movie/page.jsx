@@ -10,6 +10,8 @@ import LoadingPhoto from '../../components/LoadingPhoto';
 import VideoPlayer from '../../components/VideoPlayer';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
 import HappyTagAd from '../../components/ads/happyTagAd';
+import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
+import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
@@ -107,6 +109,8 @@ overflow-y-auto"
             {movie?.length > 0 &&
               movie.map((item, index) => (
                 <div key={index} className="w-full h-fit">
+                  <ExoclickOutStreamVideo />
+
                   <VideoPlayer
                     videoUrl={item?.movieLink}
                     showAd={isTrue}
@@ -115,6 +119,8 @@ overflow-y-auto"
                 </div>
               ))}
           </div>
+          <ExoclickVideoSlider />
+
           <ContactUs />
         </div>
       </div>

@@ -2,25 +2,20 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import VideoPlayer from '../../components/VideoPlayer';
 import Loading from '../../components/Loading';
-import BackButton from '../../components/BackButton';
 import SideBarMenu from '../../components/SideBarMenu';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import HappyTagAd from '../../components/ads/happyTagAd';
 import TurkishCartoon from '../../components/turkishCartoon';
-
+import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
+import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
 export default function Page() {
   const [episodes, setEpisodes] = useState([]);
   const [episodeNumber, setEpisodeNumber] = useState(1); // التحكم برقم الحلقة
   const [isLoading, setIsLoading] = useState(false);
   const [episodeName, setEpisodeName] = useState('');
-  const [episodeImage, setEpisodeImage] = useState('');
   const [isOpen, setIsOpen] = useState(false);
-  const [isTrue, setIsTrue] = useState(true);
-  const [hasMoreEpisodes, setHasMoreEpisodes] = useState(true);
-  const router = useRouter();
 
   // استخدام URL parameters لجلب اسم الحلقة
   useEffect(() => {
@@ -96,7 +91,6 @@ overflow-y-auto"
         <div
           onClick={() => {
             localStorage.removeItem('episodeNumber');
-            setIsTrue(false);
           }}
         >
           {/* <BackButton /> */}
@@ -125,12 +119,16 @@ overflow-y-auto"
                     <h1 className="text-white text-center p-2">
                       {episode?.episodeName}
                     </h1>
+                    <ExoclickOutStreamVideo />
+
                     <VideoPlayer
                       videoUrl={episode?.episodeLink}
                       image={episode?.episodeImage}
                       episodeName={episode?.episodeName}
                     />
                   </div>
+                  <ExoclickVideoSlider />
+
                   <TurkishCartoon vertical={true} image={false} />
                 </div>
               );

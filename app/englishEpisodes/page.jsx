@@ -10,6 +10,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import HappyTagAd from '../../components/ads/happyTagAd';
 import EnglishCartoon from '../../components/englishCartoon';
+import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
+import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
 
 export default function Page() {
   const [episodes, setEpisodes] = useState([]);
@@ -122,15 +124,19 @@ overflow-y-auto"
                   <div className={'w-full'}>
                     <HappyTagAd render={episode?.episodeLink} />
 
+                    <ExoclickOutStreamVideo />
                     <h1 className="text-white text-center p-2">
                       {episode?.episodeName}
                     </h1>
+
                     <VideoPlayer
                       videoUrl={episode?.episodeLink}
                       image={episode?.episodeImage}
                       episodeName={episode?.episodeName}
                     />
                   </div>
+                  <ExoclickVideoSlider />
+
                   <EnglishCartoon vertical={true} image={false} />
                 </div>
               );

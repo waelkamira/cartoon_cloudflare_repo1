@@ -94,7 +94,7 @@ export default function Profile() {
               <div className="relative h-52 w-52 rounded-lg">
                 <Image
                   priority
-                  src={'https://i.imgur.com/uuWOSAu.png'}
+                  src={'https://i.imgur.com/ujGghEC.png'}
                   layout="fill"
                   objectFit="cover"
                   alt={user?.name}

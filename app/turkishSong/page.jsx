@@ -10,6 +10,8 @@ import TurkishSongs from '../../components/turkishKidsSongs';
 import HappyTagAd from '../../components/ads/happyTagAd';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
 import VideoPlayer from '../../components/VideoPlayer';
+import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
+import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
@@ -96,6 +98,8 @@ export default function Page() {
                     className=" flex flex-col items-center justify-center rounded-lg overflow-hidden w-full"
                     key={item.songLink}
                   >
+                    <ExoclickOutStreamVideo />
+
                     <VideoPlayer
                       videoUrl={item.songLink}
                       image={item?.songImage}
@@ -107,6 +111,8 @@ export default function Page() {
           </div>
         </div>
       </div>
+      <ExoclickVideoSlider />
+
       <TurkishSongs vertical={true} title={false} image={false} />
       <div className="p-2">
         <ContactUs />

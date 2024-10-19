@@ -10,6 +10,8 @@ import EnglishSongs from '../../components/englishKidsSongs';
 import HappyTagAd from '../../components/ads/happyTagAd';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
 import VideoPlayer from '../../components/VideoPlayer';
+import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
+import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
@@ -96,6 +98,8 @@ export default function Page() {
                     className=" flex flex-col items-center justify-center rounded-lg overflow-hidden w-full"
                     key={item.songLink}
                   >
+                    <ExoclickOutStreamVideo />
+
                     <VideoPlayer
                       videoUrl={item.songLink}
                       image={item?.songImage}
@@ -107,6 +111,8 @@ export default function Page() {
           </div>
         </div>
       </div>
+      <ExoclickVideoSlider />
+
       <EnglishSongs vertical={true} title={false} image={false} />
       <div className="p-2">
         <ContactUs />
