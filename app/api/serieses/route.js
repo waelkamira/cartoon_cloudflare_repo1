@@ -54,7 +54,7 @@ export async function GET(req) {
   const skip = (page - 1) * limit;
   const seriesName = searchParams.get('seriesName') || '';
   const planetName = searchParams.get('planetName') || '';
-  const mostViewed = searchParams.get('mostViewed') === 'true'; // تحويل القيمة إلى Boolean
+  const mostViewed = searchParams.get('mostViewed') === false; // تحويل القيمة إلى Boolean
 
   try {
     let serieses;

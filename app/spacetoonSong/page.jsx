@@ -87,7 +87,7 @@ export default function Page() {
           <h1 className="grow text-sm lg:text-2xl w-full text-white">
             <span className="text-gray-500 ml-2">#</span>
             اسم الأغنية: <span>{spacetoonSong[0]?.spacetoonSongName}</span>
-            <HappyTagAd render={spacetoonSong[0]?.spacetoonSongName} />
+            {/* <HappyTagAd render={spacetoonSong[0]?.spacetoonSongName} /> */}
           </h1>
         </div>
 

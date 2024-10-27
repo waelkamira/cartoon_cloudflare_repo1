@@ -199,7 +199,7 @@ export default function SeriesAndEpisodes() {
               <div className={'w-full'}>
                 <h1 className="text-white text-center p-2">
                   {episode?.episodeName}
-                  <HappyTagAd render={episode?.episodeName} />
+                  {/* <HappyTagAd render={episode?.episodeName} /> */}
                 </h1>
 
                 <VideoPlayer
@@ -212,7 +212,7 @@ export default function SeriesAndEpisodes() {
                 <ContactUs />
                 <ExoclickOutStreamVideo />
                 <ExoclickVideoSlider />
-                {/* <ExoclickBanner /> */}
+                <ExoclickBanner />
                 {/* <AdsterraNativeBanner /> */}
                 {/* <AdsterraBanner /> */}
                 {/* <AdsterraPopunderFor /> */}

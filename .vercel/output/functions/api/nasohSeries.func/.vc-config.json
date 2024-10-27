@@ -1,0 +1,18 @@
+{
+  "runtime": "edge",
+  "name": "api/nasohSeries",
+  "deploymentTarget": "v8-worker",
+  "entrypoint": "index.js",
+  "assets": [],
+  "framework": {
+    "slug": "nextjs",
+    "version": "14.2.14"
+  },
+  "environment": {
+    "__NEXT_BUILD_ID": "VHYn2OVr1g9J-xh4_sT4y",
+    "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "xT/zIOh3g8Kbd5m2YmvHna40tMGKaKIorJN/p132N7g=",
+    "__NEXT_PREVIEW_MODE_ID": "6f9af8534ac7c51bc67085e0d2e67b8f",
+    "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "b9062dc9b56286e2e28cb9f2ef1b0e20a7a2f2f7243d2b2720ae24e42541878b",
+    "__NEXT_PREVIEW_MODE_SIGNING_KEY": "4a4e5693a3f50af537a832df522f90d95836b2f2c0c7a7cbac115aa83ddc30d7"
+  }
+}

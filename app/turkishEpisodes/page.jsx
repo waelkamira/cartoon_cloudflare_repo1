@@ -114,7 +114,7 @@ overflow-y-auto"
                   className="flex flex-col items-center justify-start  overflow-hidden"
                 >
                   <div className={'w-full'}>
-                    <HappyTagAd render={episode?.episodeLink} />
+                    {/* <HappyTagAd render={episode?.episodeLink} /> */}
 
                     <h1 className="text-white text-center p-2">
                       {episode?.episodeName}
