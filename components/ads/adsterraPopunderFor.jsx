@@ -31,7 +31,7 @@ const AdComponent = () => {
         src="//pl24721906.cpmrevenuegate.com/eb/86/29/eb862969e99d642ce7537641857bdce0.js"
         strategy="lazyOnload" // تحميل السكربت بعد اكتمال تحميل الصفحة
         onLoad={() => {
-          console.log('Script loaded successfully');
+          // console.log('Script loaded successfully');
         }}
       />
     </div>

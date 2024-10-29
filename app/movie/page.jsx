@@ -110,7 +110,6 @@ overflow-y-auto"
               movie.map((item, index) => (
                 <div key={index} className="w-full h-fit">
                   <ExoclickOutStreamVideo />
-
                   <VideoPlayer
                     videoUrl={item?.movieLink}
                     showAd={isTrue}
@@ -119,7 +118,7 @@ overflow-y-auto"
                 </div>
               ))}
           </div>
-          <ExoclickVideoSlider />
+          {/* <ExoclickVideoSlider /> */}
 
           <ContactUs />
         </div>

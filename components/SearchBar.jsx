@@ -122,7 +122,7 @@ export default function SearchBar() {
             />
             <div className="absolute flex items-center top-0 md:top-0 md:right-4 md:w-24 w-[80px] right-0 h-full rounded-r-full">
               <h1
-                className="absolute flex justify-center items-center top-0 right-0 bg-one h-full text-white rounded-r-full border border-white w-fit px-2"
+                className="absolute flex justify-center cursor-pointer select-none items-center top-0 right-0 bg-one h-full text-white rounded-r-full border border-white w-fit px-2"
                 onClick={handleSearch}
               >
                 بحث

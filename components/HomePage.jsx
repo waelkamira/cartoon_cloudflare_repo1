@@ -14,7 +14,6 @@ import EpisodForm from './createEpisode';
 import MovieForm from './createMovie';
 import SongForm from './createSong';
 import SpacetoonSongForm from './createSpacetoonSong';
-
 export default function HomePage() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSpacetoonOpen, setIsSpacetoonOpen] = useState(false);
@@ -22,7 +21,7 @@ export default function HomePage() {
   const [show, setShow] = useState(false);
   const [display, setDisplay] = useState(false);
   const [active, setActive] = useState(false);
-  // const session = useSession();
+  const session = useSession();
   const user = CurrentUser();
   // console.log('user', user);
   useEffect(() => {
@@ -84,16 +83,16 @@ export default function HomePage() {
               isSpacetoonOpen={isSpacetoonOpen}
             />
             {/* انتبه يتم تفعيل هذا الخيار فقط عندما نريد اضافة مسلسل او فيلم او حلقة .. الخ وليس متاح للمستخدمين */}
-            {/* {session?.status === 'unauthenticated' && (
+            {session?.status === 'unauthenticated' && (
               <Button title={'تسجيل الدخول'} path={'/login'} style={' '} />
-            )} */}
-            {/* {session?.status === 'authenticated' && (
+            )}
+            {session?.status === 'authenticated' && (
               <Button
                 title={'تسجيل الخروج'}
                 path={'/'}
                 onClick={() => signOut()}
               />
-            )} */}
+            )}
           </div>
         </div>
         <div className=" flex flex-col justify-center items-center w-full rounded-lg sm:p-8 gap-2 ">

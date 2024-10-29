@@ -29,7 +29,7 @@ export default function Page() {
     const params = new URLSearchParams(window.location.search);
     const episodeNameParam = params.get('episodeName');
     if (episodeNameParam) {
-      console.log('episodeNameParam', episodeNameParam);
+      // console.log('episodeNameParam', episodeNameParam);
 
       setEpisodeName(episodeNameParam);
       fetchEpisode(episodeNameParam);
@@ -47,6 +47,7 @@ export default function Page() {
         );
 
         const json = await response.json();
+        console.log('json', json);
 
         // التحقق من نجاح الاستجابة
         if (response.ok) {
@@ -122,21 +123,18 @@ overflow-y-auto"
                   className="flex flex-col items-center justify-start  overflow-hidden"
                 >
                   <div className={'w-full'}>
-                    {/* <HappyTagAd render={episode?.episodeLink} /> */}
-
+                    <HappyTagAd render={episode?.episodeLink} />
                     <ExoclickOutStreamVideo />
                     <h1 className="text-white text-center p-2">
                       {episode?.episodeName}
                     </h1>
-
                     <VideoPlayer
                       videoUrl={episode?.episodeLink}
                       image={episode?.episodeImage}
                       episodeName={episode?.episodeName}
                     />
                   </div>
-                  <ExoclickVideoSlider />
-
+                  {/* <ExoclickVideoSlider /> */}
                   <EnglishCartoon vertical={true} image={false} />
                 </div>
               );

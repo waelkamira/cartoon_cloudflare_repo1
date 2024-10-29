@@ -6,13 +6,13 @@
   "assets": [],
   "framework": {
     "slug": "nextjs",
-    "version": "14.2.14"
+    "version": "14.2.15"
   },
   "environment": {
-    "__NEXT_BUILD_ID": "VHYn2OVr1g9J-xh4_sT4y",
-    "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "xT/zIOh3g8Kbd5m2YmvHna40tMGKaKIorJN/p132N7g=",
-    "__NEXT_PREVIEW_MODE_ID": "6f9af8534ac7c51bc67085e0d2e67b8f",
-    "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "b9062dc9b56286e2e28cb9f2ef1b0e20a7a2f2f7243d2b2720ae24e42541878b",
-    "__NEXT_PREVIEW_MODE_SIGNING_KEY": "4a4e5693a3f50af537a832df522f90d95836b2f2c0c7a7cbac115aa83ddc30d7"
+    "__NEXT_BUILD_ID": "8vfeUtaTTDx1_pZFGgU8q",
+    "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "tP0RpZwYyR4ZMR2wkQZ/zi77hQ324kI/xa12H5KjLTU=",
+    "__NEXT_PREVIEW_MODE_ID": "30cd6fdbc52ea040057f6d344d4cbc24",
+    "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "7c00c2c1129b9295252b1ad6f2e59c60f8a648686c4ccc66382de2c672abb177",
+    "__NEXT_PREVIEW_MODE_SIGNING_KEY": "5b6eedfe408eb6bf3df1eb334202f2d502477d0acab9efb51df6c4c12f712994"
   }
 }

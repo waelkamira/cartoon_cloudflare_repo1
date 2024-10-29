@@ -102,8 +102,8 @@ export default function SpacetoonSongs({
     router.push(`/spacetoonSong?spacetoonSongName=${songName}`);
     setTimeout(() => {
       const newPath = window.location.pathname + window.location.search;
-      console.log('newPath', newPath);
-      console.log('currentPath', currentPath);
+      // console.log('newPath', newPath);
+      // console.log('currentPath', currentPath);
 
       // تحديث الصفحة فقط إذا تغير المسار
       if (newPath !== previousPath && newPath.includes('/spacetoonSong')) {

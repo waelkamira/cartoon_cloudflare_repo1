@@ -130,7 +130,7 @@
       "handle": "hit"
     },
     {
-      "src": "/_next/static/(?:[^/]+/pages|pages|chunks|runtime|css|image|media|VHYn2OVr1g9J\\-xh4_sT4y)/.+",
+      "src": "/_next/static/(?:[^/]+/pages|pages|chunks|runtime|css|image|media|8vfeUtaTTDx1_pZFGgU8q)/.+",
       "headers": {
         "cache-control": "public,max-age=31536000,immutable"
       },
@@ -212,6 +212,11 @@
         "protocol": "https",
         "hostname": "^(?:^(?:i\\.ytimg\\.com)$)$",
         "pathname": "^(?:(?!(?:^|\\/)\\.{1,2}(?:\\/|$))(?:(?:(?!(?:^|\\/)\\.{1,2}(?:\\/|$)).)*?)\\/?)$"
+      },
+      {
+        "protocol": "https",
+        "hostname": "^(?:^(?:www\\.exoclick\\.com)$)$",
+        "pathname": "^(?:(?!(?:^|\\/)\\.{1,2}(?:\\/|$))(?:(?:(?!(?:^|\\/)\\.{1,2}(?:\\/|$)).)*?)\\/?)$"
       }
     ],
     "minimumCacheTTL": 60,
@@ -227,12 +232,12 @@
       "path": "500",
       "contentType": "text/html; charset=utf-8"
     },
-    "_app.rsc.json": {
-      "path": "_app.rsc",
-      "contentType": "application/json"
-    },
     "_error.rsc.json": {
       "path": "_error.rsc",
+      "contentType": "application/json"
+    },
+    "_app.rsc.json": {
+      "path": "_app.rsc",
       "contentType": "application/json"
     },
     "_document.rsc.json": {
@@ -241,7 +246,7 @@
     }
   },
   "framework": {
-    "version": "14.2.14"
+    "version": "14.2.15"
   },
   "crons": []
 }

@@ -1,3 +1,4 @@
+'use client';
 import React, { useEffect } from 'react';
 
 const ExoclickOutStreamVideo = () => {
@@ -56,3 +57,34 @@ const ExoclickOutStreamVideo = () => {
 };
 
 export default ExoclickOutStreamVideo;
+// 'use client';
+// import React, { useEffect } from 'react';
+
+// const ExoclickOutStreamVideo = () => {
+//   useEffect(() => {
+//     // تحميل سكريبت AdProvider عبر خادم الوكيل لتجنب CORS
+//     const adScript = document.createElement('script');
+//     // توجيه الطلب عبر الوكيل المحلي لتجنب CORS
+//     adScript.src = 'http://a.magsrv.com/ad-provider.js'; // استخدام الوكيل
+//     adScript.async = true;
+//     document.body.appendChild(adScript);
+
+//     adScript.onload = () => {
+//       // عند تحميل السكريبت بنجاح، تفعيل الإعلان
+//       (window.AdProvider = window.AdProvider || []).push({ serve: {} });
+//     };
+
+//     return () => {
+//       // تنظيف السكريبت عند إلغاء تحميل المكون
+//       document.body.removeChild(adScript);
+//     };
+//   }, []);
+
+//   return (
+//     <div id="outstream-video-ad-container">
+//       <ins className="eas6a97888e37" data-zoneid="5448580"></ins>
+//     </div>
+//   );
+// };
+
+// export default ExoclickOutStreamVideo;

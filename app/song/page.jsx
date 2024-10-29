@@ -82,7 +82,7 @@ export default function Page() {
           <h1 className="grow text-sm lg:text-2xl w-full text-white">
             <span className="text-gray-500 ml-2">#</span>
             اسم الأغنية: <span className="">{song[0]?.songName}</span>
-            {/* <HappyTagAd render={song[0]?.songName} /> */}
+            <HappyTagAd render={song[0]?.songName} />
           </h1>
         </div>
 
@@ -99,7 +99,6 @@ export default function Page() {
                     key={item.songLink}
                   >
                     <ExoclickOutStreamVideo />
-
                     <VideoPlayer
                       videoUrl={item.songLink}
                       image={item?.songImage}
@@ -111,7 +110,8 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <ExoclickVideoSlider />
+      {/* <ExoclickVideoSlider /> */}
+
       <Songs vertical={true} title={false} image={false} />
       <div className="p-2">
         <ContactUs />

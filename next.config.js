@@ -1,3 +1,5 @@
+const { setupDevPlatform } = require('@cloudflare/next-on-pages/next-dev');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
@@ -10,26 +12,12 @@ const nextConfig = {
 
   images: {
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'res.cloudinary.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'lh3.googleusercontent.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'i.imgur.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'imgur.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'i.ytimg.com',
-      },
+      { protocol: 'https', hostname: 'res.cloudinary.com' },
+      { protocol: 'https', hostname: 'lh3.googleusercontent.com' },
+      { protocol: 'https', hostname: 'i.imgur.com' },
+      { protocol: 'https', hostname: 'imgur.com' },
+      { protocol: 'https', hostname: 'i.ytimg.com' },
+      { protocol: 'https', hostname: 'www.exoclick.com' },
     ],
   },
 
@@ -45,5 +33,9 @@ const nextConfig = {
     return config;
   },
 };
+
+if (process.env.NODE_ENV === 'development') {
+  setupDevPlatform();
+}
 
 module.exports = nextConfig;

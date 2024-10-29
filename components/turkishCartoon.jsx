@@ -27,7 +27,7 @@ export default function TurkishCartoon({ vertical = false, image }) {
   const [previousPath, setPreviousPath] = useState('');
 
   // console.log('user', user);
-  console.log('vertical', vertical);
+  // console.log('vertical', vertical);
   const [turkishCartoonSliderRef, turkishCartoonInstanceRef] = useKeenSlider({
     loop: false,
     mode: 'free',
@@ -77,7 +77,7 @@ export default function TurkishCartoon({ vertical = false, image }) {
       );
       const json = await response.json();
       if (response.ok) {
-        console.log('turkishCartoon', json);
+        // console.log('turkishCartoon', json);
 
         const existingIds = new Set(
           turkishCartoon.map((episode) => episode.id)

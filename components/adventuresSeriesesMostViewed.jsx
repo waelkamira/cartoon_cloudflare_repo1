@@ -53,7 +53,7 @@ export default function AdventuresPlanetMostViewed() {
       );
       const json = await response?.json();
       if (response.ok) {
-        console.log('json', json);
+        // console.log('json', json);
         const existingIds = new Set(
           adventuresMostViewed.map((series) => series.id)
         );

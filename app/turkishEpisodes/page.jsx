@@ -114,20 +114,18 @@ overflow-y-auto"
                   className="flex flex-col items-center justify-start  overflow-hidden"
                 >
                   <div className={'w-full'}>
-                    {/* <HappyTagAd render={episode?.episodeLink} /> */}
-
+                    <HappyTagAd render={episode?.episodeLink} />
                     <h1 className="text-white text-center p-2">
                       {episode?.episodeName}
                     </h1>
                     <ExoclickOutStreamVideo />
-
                     <VideoPlayer
                       videoUrl={episode?.episodeLink}
                       image={episode?.episodeImage}
                       episodeName={episode?.episodeName}
                     />
                   </div>
-                  <ExoclickVideoSlider />
+                  {/* <ExoclickVideoSlider /> */}
 
                   <TurkishCartoon vertical={true} image={false} />
                 </div>
