@@ -12,19 +12,19 @@ export default function SideBarMenu({ setIsOpen }) {
 
   return (
     <div
-      className="relative w-screen h-screen z-50 right-0"
+      className="absolute w-screen h-screen z-50 right-0 -top-5"
       onClick={() => setIsOpen(false)}
     >
       <div
-        className="absolute w-64 bg-white z-50 right-0 -top-10 h-screen overflow-y-auto "
+        className=" w-64 bg-white z-50  h-screen overflow-y-auto "
         onClick={(e) => e.stopPropagation()}
       >
         <div className="sticky top-0 w-full z-50">
           <div className="flex justify-center items-center w-full cursor-pointer bg-one">
-            <div className="relative size-20 my-2">
+            <div className="relative size-32 my-2">
               <Image
                 priority
-                src={'https://i.imgur.com/ujGghEC.png'}
+                src={'https://i.imgur.com/gJBDZfT.png'}
                 fill
                 alt={'photo'}
               />
@@ -46,7 +46,7 @@ export default function SideBarMenu({ setIsOpen }) {
           <Button title={'تسجيل الخروج'} path={'/'} onClick={() => signOut()} />
         </>
       )} */}
-          {session?.status === 'authenticated' && <> </>}
+
           {/* <Button title={'بروفايل'} path={'/profile'} /> */}
 
           <ItemForSideBarMenu

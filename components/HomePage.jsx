@@ -41,7 +41,7 @@ export default function HomePage() {
             <div className="relative w-24 h-14 sm:h-16 sm:w-20 md:h-20 md:w-24 lg:h-24 lg:w-28 shadow-lg shadow-one">
               <Image
                 priority
-                src={'https://i.imgur.com/ujGghEC.png'}
+                src={'https://i.imgur.com/gJBDZfT.png'}
                 layout="fill"
                 objectFit="cover"
                 alt="photo"
@@ -83,16 +83,16 @@ export default function HomePage() {
               isSpacetoonOpen={isSpacetoonOpen}
             />
             {/* انتبه يتم تفعيل هذا الخيار فقط عندما نريد اضافة مسلسل او فيلم او حلقة .. الخ وليس متاح للمستخدمين */}
-            {session?.status === 'unauthenticated' && (
+            {/* {session?.status === 'unauthenticated' && (
               <Button title={'تسجيل الدخول'} path={'/login'} style={' '} />
-            )}
-            {session?.status === 'authenticated' && (
+            )} */}
+            {/* {session?.status === 'authenticated' && (
               <Button
                 title={'تسجيل الخروج'}
                 path={'/'}
                 onClick={() => signOut()}
               />
-            )}
+            )} */}
           </div>
         </div>
         <div className=" flex flex-col justify-center items-center w-full rounded-lg sm:p-8 gap-2 ">
