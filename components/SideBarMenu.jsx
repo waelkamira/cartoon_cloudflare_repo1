@@ -21,10 +21,10 @@ export default function SideBarMenu({ setIsOpen }) {
       >
         <div className="sticky top-0 w-full z-50">
           <div className="flex justify-center items-center w-full cursor-pointer bg-one">
-            <div className="relative size-32 my-2">
+            <div className="relative size-28 my-2 mt-8">
               <Image
                 priority
-                src={'https://i.imgur.com/gJBDZfT.png'}
+                src={'https://i.imgur.com/nfDVITC.png'}
                 fill
                 alt={'photo'}
               />

@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import LoadingPhoto from './LoadingPhoto';
 import HappyTagAd from './ads/happyTagAd';
+
 export default function VideoPlayer({
   videoUrl = ' ',
   image,

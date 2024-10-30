@@ -41,7 +41,7 @@ export default function HomePage() {
             <div className="relative w-24 h-14 sm:h-16 sm:w-20 md:h-20 md:w-24 lg:h-24 lg:w-28 shadow-lg shadow-one">
               <Image
                 priority
-                src={'https://i.imgur.com/gJBDZfT.png'}
+                src={'https://i.imgur.com/nfDVITC.png'}
                 layout="fill"
                 objectFit="cover"
                 alt="photo"

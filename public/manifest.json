@@ -1,9 +1,9 @@
 {
-  "name": "كرتون",
-  "short_name": "App",
+  "name": "كرتون بهيجة",
+  "short_name": "كرتون بهيجة",
 
-  "theme_color": "#FFFFFF",
-  "background_color": "#FFFFFF",
+  "theme_color": "#F70000",
+  "background_color": "#F70000",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
