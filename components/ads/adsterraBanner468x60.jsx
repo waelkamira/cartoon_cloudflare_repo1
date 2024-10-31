@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect } from 'react';
 
-const AdIframe = () => {
+const AdsterraBanner468x60 = () => {
   useEffect(() => {
     // تغيير شفافية العناصر بعد تحميل المكون
     document.querySelectorAll("div[id^='atContainer']").forEach((element) => {
@@ -49,4 +49,4 @@ const AdIframe = () => {
   );
 };
 
-export default AdIframe;
+export default AdsterraBanner468x60;

@@ -11,11 +11,14 @@ import { ContactUs } from '../../components/sendEmail/sendEmail';
 import HappyTagAd from '../../components/ads/happyTagAd';
 import AdsterraNativeBanner from '../../components/ads/adsterraNativeBanner';
 import AdsterraBanner from '../../components/ads/adsterraBanner';
+import AdsterraBanner468x60 from '../../components/ads/adsterraBanner468x60';
 import AdsterraPopunderFor from '../../components/ads/adsterraPopunderFor';
 import ExoclickBanner from '../../components/ads/exoclickBanner';
 import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
 import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
 import ExoClickAd from '../../components/ads/exoclickAd';
+import ExoclickNative from '../../components/ads/exoclickNative';
+import ExoclickInStreamVideoAd from '../../components/ads/exoclickInStreamVideoAd';
 
 export default function SeriesAndEpisodes() {
   const [episodes, setEpisodes] = useState([]);
@@ -220,14 +223,14 @@ export default function SeriesAndEpisodes() {
                   onNextEpisode={handleNextEpisode} // تمرير دالة الانتقال للحلقة التالية
                 />
                 <ContactUs />
-                <ExoclickOutStreamVideo render={episode?.episodeLink} />
+                {/* <ExoclickOutStreamVideo render={episode?.episodeLink} />
                 <ExoclickVideoSlider render={episode?.episodeLink} />
-
                 <ExoclickBanner render={episode?.episodeLink} />
                 <ExoClickAd />
-                {/* <AdsterraNativeBanner /> */}
-                {/* <AdsterraBanner /> */}
-                {/* <AdsterraPopunderFor /> */}
+                <ExoclickNative />
+                <AdsterraBanner />
+                <AdsterraNativeBanner /> 
+                <AdsterraBanner468x60 />*/}
               </div>
             </div>
           ))}

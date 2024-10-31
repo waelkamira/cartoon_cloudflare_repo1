@@ -34,7 +34,6 @@ const AdseraNativeBanner = () => {
     <div
       id="container-f469ec57471c0a1740f3324b686039c0"
       className="ad-container"
-      style={{ opacity: 1 }}
     ></div>
   );
 };
