@@ -223,14 +223,14 @@ export default function SeriesAndEpisodes() {
                   onNextEpisode={handleNextEpisode} // تمرير دالة الانتقال للحلقة التالية
                 />
                 <ContactUs />
-                {/* <ExoclickOutStreamVideo render={episode?.episodeLink} />
+                <ExoclickOutStreamVideo render={episode?.episodeLink} />
                 <ExoclickVideoSlider render={episode?.episodeLink} />
                 <ExoclickBanner render={episode?.episodeLink} />
                 <ExoClickAd />
                 <ExoclickNative />
                 <AdsterraBanner />
-                <AdsterraNativeBanner /> 
-                <AdsterraBanner468x60 />*/}
+                <AdsterraNativeBanner />
+                <AdsterraBanner468x60 />
               </div>
             </div>
           ))}
