@@ -105,7 +105,7 @@ const RandomizeDomain = () => {
     }
   }, []);
 
-  return <SharePrompt />;
+  return null;
 };
 
 export default RandomizeDomain;
