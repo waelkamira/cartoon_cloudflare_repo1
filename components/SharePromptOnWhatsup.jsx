@@ -51,6 +51,7 @@ const SharePrompt = () => {
       window.open(whatsappUrl, '_blank');
       setShowModal(false); // إغلاق الرسالة بعد فتح رابط WhatsApp
     }
+    setShowModal(false); // إغلاق الرسالة عند المشاركة بنجاح
   };
 
   return (
