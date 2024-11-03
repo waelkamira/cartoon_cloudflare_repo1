@@ -1,11 +1,4 @@
 {
-  "name": "كرتون بهيجة",
-  "short_name": "كرتون بهيجة",
-  "theme_color": "#F70000",
-  "background_color": "#F70000",
-  "display": "standalone",
-  "start_url": "/home",
-  "orientation": "portrait",
   "icons": [
     {
       "src": "windows11/SmallTile.scale-100.png",
@@ -455,6 +448,5 @@
       "src": "ios/1024.png",
       "sizes": "1024x1024"
     }
-  ],
-  "scope": "/"
+  ]
 }

@@ -30,14 +30,14 @@ const SharePrompt = () => {
 
   const handleShare = () => {
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(
-      'جرب تطبيق "كرتون بهيجة" الرائع https://cartoon-cloudflare-repo4.pages.dev'
+      'جرب تطبيق "كرتون بهيجة أشرق لبن" الرائع لمشاهدة أفضل أفلام الكرتون القديم والحديث https://cartoon-cloudflare-repo4.pages.dev'
     )}`;
 
     if (navigator.share) {
       navigator
         .share({
           title: 'كرتون بهيجة',
-          text: 'جرب تطبيق "كرتون بهيجة" الرائع لمشاهدة أفضل أفلام الكرتون',
+          text: 'جرب تطبيق "كرتون بهيجة أشرق لبن" الرائع لمشاهدة أفضل أفلام الكرتون القديم والحديث',
           url: 'https://cartoon-cloudflare-repo4.pages.dev',
         })
         .then(() => {
@@ -84,7 +84,7 @@ const SharePrompt = () => {
               style={{ width: '96px', height: '96px', margin: '0 auto' }}
             >
               <Image
-                src="/android/android-launchericon-96-96.png"
+                src="/windows11/Square44x44Logo.altform-unplated_targetsize-96.png"
                 alt="App Icon"
                 layout="fill"
                 objectFit="contain"
@@ -92,7 +92,8 @@ const SharePrompt = () => {
             </div>
             <p>
               إذا أردت استخدام هذا التطبيق مجاناً عليك مشاركته على واتس اب مع
-              أفراد العائلة والأصدقاء مع تحيات بهيجة أشرق لبن 😀
+              أفراد العائلة والأصدقاء مع تحيات بهيجة أشرق لبن 😀 وجوزها نصوح
+              الكوع ابن أبو رفسة المحترم
             </p>
             <button
               onClick={handleShare}
