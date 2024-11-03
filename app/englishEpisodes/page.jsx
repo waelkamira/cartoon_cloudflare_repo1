@@ -8,7 +8,7 @@ import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import HappyTagAd from '../../components/ads/happyTagAd';
+import MonetagExcitedTag from '../../components/ads/MonetagExcitedTag';
 import EnglishCartoon from '../../components/englishCartoon';
 import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
 import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
@@ -123,7 +123,7 @@ overflow-y-auto"
                   className="flex flex-col items-center justify-start  overflow-hidden"
                 >
                   <div className={'w-full'}>
-                    <HappyTagAd render={episode?.episodeLink} />
+                    <MonetagExcitedTag render={episode?.episodeLink} />
                     <ExoclickOutStreamVideo />
                     <h1 className="text-white text-center p-2">
                       {episode?.episodeName}

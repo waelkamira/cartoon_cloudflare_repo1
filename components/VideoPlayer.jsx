@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import LoadingPhoto from './LoadingPhoto';
-import HappyTagAd from './ads/happyTagAd';
+import MonetagExcitedTag from './ads/MonetagExcitedTag';
 
 export default function VideoPlayer({
   videoUrl = ' ',
@@ -188,12 +188,12 @@ export default function VideoPlayer({
     >
       {videoId ? (
         <div className="w-full">
-          {/* <HappyTagAd /> */}
+          <MonetagExcitedTag />
           {isAdPlaying ? (
             <div className="w-full h-full flex justify-center items-center">
               <video
                 className="w-full min-w-72 min-h-44 sm:w-96 sm:h-72 md:w-[800px] md:h-[600px]"
-                // src="//thubanoa.com/1?z=8259389" // رابط الإعلان
+                src="//teestoagloupaza.net/401/8453969" // رابط الإعلان
                 autoPlay
                 controls
                 onEnded={handleAdEnd} // استئناف الفيلم بعد انتهاء الإعلان

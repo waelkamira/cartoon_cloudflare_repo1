@@ -8,7 +8,9 @@ import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
-import HappyTagAd from '../../components/ads/happyTagAd';
+
+import MonetagExcitedTag from '../../components/ads/MonetagExcitedTag';
+import MonetagInPagePush from '../../components/ads/MonetagInPagePush';
 import AdsterraNativeBanner from '../../components/ads/adsterraNativeBanner';
 import AdsterraBanner from '../../components/ads/adsterraBanner';
 import AdsterraBanner468x60 from '../../components/ads/adsterraBanner468x60';
@@ -19,6 +21,13 @@ import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
 import ExoClickAd from '../../components/ads/exoclickAd';
 import ExoclickNative from '../../components/ads/exoclickNative';
 import ExoclickInStreamVideoAd from '../../components/ads/exoclickInStreamVideoAd';
+import JuicyAdsAd from '../../components/ads/JuicyAdsAd';
+import JuicyAdsAdVideo from '../../components/ads/JuicyAdsAdVideo';
+import JuicyAdsImage from '../../components/ads/JuicyAdsImage';
+import HillTopAdsVideo from '../../components/ads/HillTopAdsVideo';
+import HillTopAdsVideoSlider from '../../components/ads/HillTopAdsVideoSlider';
+import HillTopAdsMultiTagBanner from '../../components/ads/HillTopAdsMultiTagBanner';
+import HillTopAdsMultiTagBannerMobile from '../../components/ads/HillTopAdsMultiTagBannerMobile';
 
 export default function SeriesAndEpisodes() {
   const [episodes, setEpisodes] = useState([]);
@@ -60,7 +69,7 @@ export default function SeriesAndEpisodes() {
       );
       if (response.ok) {
         const json = await response.json();
-        console.log('json', json);
+        // console.log('json', json);
 
         if (json.length > 0) {
           setEpisodes([json[0]]); // تغيير لجلب حلقة واحدة بدلاً من تكديس الحلقات
@@ -213,7 +222,6 @@ export default function SeriesAndEpisodes() {
               <div className={'w-full'}>
                 <h1 className="text-white text-center p-2">
                   {episode?.episodeName}
-                  {/* <HappyTagAd render={episode?.episodeName} /> */}
                 </h1>
                 <VideoPlayer
                   videoUrl={episode?.episodeLink}
@@ -223,7 +231,7 @@ export default function SeriesAndEpisodes() {
                   onNextEpisode={handleNextEpisode} // تمرير دالة الانتقال للحلقة التالية
                 />
                 <ContactUs />
-                <ExoclickOutStreamVideo render={episode?.episodeLink} />
+                {/* <ExoclickOutStreamVideo render={episode?.episodeLink} />
                 <ExoclickVideoSlider render={episode?.episodeLink} />
                 <ExoclickBanner render={episode?.episodeLink} />
                 <ExoClickAd />
@@ -231,6 +239,16 @@ export default function SeriesAndEpisodes() {
                 <AdsterraBanner />
                 <AdsterraNativeBanner />
                 <AdsterraBanner468x60 />
+                <HillTopAdsMultiTagBannerMobile render={episode?.episodeLink} />
+                <HillTopAdsMultiTagBanner render={episode?.episodeLink} /> */}
+                {/* <JuicyAdsAd />
+                <JuicyAdsAdVideo />
+                <JuicyAdsImage /> */}
+                <MonetagInPagePush render={episode?.episodeLink} />
+
+                {/* <MonetagExcitedTag render={episode?.episodeLink} /> */}
+                {/* <HillTopAdsVideoSlider /> */}
+                {/* <HillTopAdsVideo /> */}
               </div>
             </div>
           ))}

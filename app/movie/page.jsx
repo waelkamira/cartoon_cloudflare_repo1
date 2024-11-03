@@ -9,7 +9,7 @@ import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import VideoPlayer from '../../components/VideoPlayer';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
-import HappyTagAd from '../../components/ads/happyTagAd';
+import MonetagExcitedTag from '../../components/ads/MonetagExcitedTag';
 import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
 import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
 
@@ -90,7 +90,7 @@ overflow-y-auto"
             <span className="text-gray-500 ml-2">#</span>
             اسم الفيلم:
             <span> {movie[0]?.movieName}</span>
-            <HappyTagAd render={movie[0]?.movieName} />
+            <MonetagExcitedTag render={movie[0]?.movieName} />
           </h1>
           {showMessage && (
             <h1 className="text-yellow-400 ">

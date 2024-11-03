@@ -7,7 +7,7 @@ import SideBarMenu from '../../components/SideBarMenu';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import SpacetoonSongs from '../../components/spacetoonSongs';
-import HappyTagAd from '../../components/ads/happyTagAd';
+import MonetagExcitedTag from '../../components/ads/MonetagExcitedTag';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
 import VideoPlayer from '../../components/VideoPlayer';
 import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
@@ -87,7 +87,7 @@ export default function Page() {
           <h1 className="grow text-sm lg:text-2xl w-full text-white">
             <span className="text-gray-500 ml-2">#</span>
             اسم الأغنية: <span>{spacetoonSong[0]?.spacetoonSongName}</span>
-            <HappyTagAd render={spacetoonSong[0]?.spacetoonSongName} />
+            <MonetagExcitedTag render={spacetoonSong[0]?.spacetoonSongName} />
           </h1>
         </div>
 

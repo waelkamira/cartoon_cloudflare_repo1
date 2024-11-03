@@ -1,5 +1,6 @@
 'use client';
 import { useEffect } from 'react';
+import SharePrompt from './SharePromptOnWhatsup';
 
 const RandomizeDomain = () => {
   const domains = [
@@ -94,7 +95,6 @@ const RandomizeDomain = () => {
     'https://cartoon-cloudflare-repo61.pages.dev/',
     'https://cartoon-cloudflare-repo62.pages.dev/',
     'https://cartoon-cloudflare-repo63.pages.dev/',
-    'https://cartoon-cloudflare-repo64.pages.dev/',
   ];
 
   useEffect(() => {
@@ -105,7 +105,7 @@ const RandomizeDomain = () => {
     }
   }, []);
 
-  return null;
+  return <SharePrompt />;
 };
 
 export default RandomizeDomain;

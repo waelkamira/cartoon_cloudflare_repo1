@@ -138,6 +138,26 @@ iframe {
   background-position: center; /* لتمركز الصورة في الوسط */
 }
 
+.ad-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  padding: 10px;
+}
+
+@media (max-width: 768px) {
+  .ad-container {
+    padding: 5px;
+  }
+
+  .adsbyexoclick {
+    width: 100%;
+    height: auto;
+  }
+}
+
 #ad-container {
   position: relative; /* أو absolute إذا كنت تريد تحديده بشكل دقيق */
   margin: 20px auto; /* لضمان أن يظهر في وسط الصفحة */
@@ -160,126 +180,149 @@ iframe {
   background-color: #f9f9f9;
   border: 2px solid #ccc;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  opacity: 0.01 !important;
+  opacity: 0.001 !important;
   padding: 5px;
   margin: 20px;
 }
 
 /* حاص ب ExoclickOutStreamVideo */
 [class*='_main_outstream'] {
-  opacity: 0.01 !important;
+  opacity: 0.001 !important;
 }
 
 [class*='video-slider-container-wrapper'] {
-  opacity: 0.01 !important;
+  opacity: 0.001 !important;
 }
 
 a[class*='ad'] {
-  opacity: 0.01 !important;
+  opacity: 0.001 !important;
 }
 
 a.ad {
-  opacity: 0.01 !important;
+  opacity: 0.001 !important;
 }
 video#video {
-  opacity: 0.01 !important ;
+  opacity: 0.001 !important ;
 }
 
 video.adaptive_video_player {
-  opacity: 0.01 !important ;
+  opacity: 0.001 !important ;
 }
 .ad-container {
-  opacity: 0.01 !important;
+  opacity: 0.001 !important;
 }
 video#adaptive_video_player {
   /* الأنماط هنا */
-  opacity: 0.01 !important;
+  opacity: 0.001 !important;
 }
 .adaptive_video_player {
   display: block;
-  opacity: 0.01 !important;
+  opacity: 0.001 !important;
 }
 #video {
   /* الأنماط هنا */
-  opacity: 0.01 !important;
+  opacity: 0.001 !important;
 }
 
 #ad {
-  opacity: 0.01 !important;
+  opacity: 0.001 !important;
 }
 #link {
-  opacity: 0.01 !important;
+  opacity: 0.001 !important;
 }
 a.ad#link {
-  opacity: 0.01 !important;
+  opacity: 0.001 !important;
 }
 
 a.ad#link,
 a.ad#link img,
 a.ad#link video {
-  opacity: 0.01 !important;
+  opacity: 0.001 !important;
 }
 
 .ad {
-  opacity: 0.01 !important;
+  opacity: 0.001 !important;
 }
 a.ad {
-  opacity: 0.01 !important;
+  opacity: 0.001 !important;
 }
 body[onload='iosfix()'] {
-  opacity: 0.01 !important; /* تطبيق الشفافية بنسبة 50% مع إعطائها الأولوية */
+  opacity: 0.001 !important; /* تطبيق الشفافية بنسبة 50% مع إعطائها الأولوية */
 }
 
 img[src*="https://s3t3d2y8.afcdn.net"]
 {
-  opacity: 0.01 !important; /* 50% شفافية */
+  opacity: 0.001 !important; /* 50% شفافية */
 }
 img[alt*='ExoClick Ad'] {
-  opacity: 0.01 !important; /* 50% شفافية */
+  opacity: 0.001 !important; /* 50% شفافية */
 }
 img[id*='logo'] {
-  opacity: 0.01 !important; /* 50% شفافية */
+  opacity: 0.001 !important; /* 50% شفافية */
 }
 
 #ad-container {
-  opacity: 0.01 !important;
+  opacity: 0.001 !important;
 }
 .ad-container {
-  opacity: 0.01 !important;
+  opacity: 0.001 !important;
 }
 iframe[src*='https://a.adtng.com']
 {
-  opacity: 0.01 !important;
+  opacity: 0.001 !important;
 }
 
 element.style {
-  opacity: 0.01 !important;
+  opacity: 0.001 !important;
 }
 
 /* Adsterra */
 
 div[id*='atContainer'] {
-  opacity: 0.01 !important;
+  opacity: 0.001 !important;
 }
 
 img[border='0'] {
-  opacity: 0.01 !important; /* اجعل الشفافية 50% */
+  opacity: 0.001 !important; /* اجعل الشفافية 50% */
 }
 #atContainer-46a3b7919cc55172c06a3175cc25a2d6 {
-  opacity: 0.01;
+  opacity: 0.001;
 }
 
 [id^='atContainer-46a3b7919cc55172c06a3175cc25a2d6'] {
-  opacity: 0.01 !important;
+  opacity: 0.001 !important;
 }
 
 [class*='container-f469ec57471c0a1740f3324b686039c0'] {
-  opacity: 0.01 !important;
+  opacity: 0.001 !important;
 }
 iframe[allowtransparency='true'][scrolling='no'][frameborder='0'][framespacing='0'][width='160'][height='300'][src='about:blank'] {
-  opacity: 0.01; /* جعل الشفافية 50% */
+  opacity: 0.001; /* جعل الشفافية 50% */
 }
 
 iframe[sandbox*='allow-scripts'][frameborder='0'][scrolling='no'] {
-  opacity: 0.01; /* جعل الشفافية 50% */
+  opacity: 0.001; /* جعل الشفافية 50% */
+}
+
+iframe[data-ad-zone='1071478'] {
+  opacity: 0.001; /* ضبط الشفافية إلى 50% */
+}
+
+iframe {
+  width: 300px;
+  height: 100px;
+  opacity: 0.001; /* تعيين الشفافية إلى 50% */
+}
+iframe {
+  width: 300px;
+  height: 250px;
+  opacity: 0.001; /* تعيين الشفافية إلى 50% */
+}
+
+iframe {
+  opacity: 0.001 !important; /* تطبيق الشفافية بنسبة 50% */
+  width: 100% !important; /* عرض الإطار بكامل العرض */
+}
+.transparent-iframe {
+  opacity: 0.001 !important; /* تطبيق الشفافية بنسبة 50% */
 }
