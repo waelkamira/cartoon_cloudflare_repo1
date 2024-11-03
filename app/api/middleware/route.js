@@ -37,7 +37,6 @@ const cors = initMiddleware(
       'https://cartoon-iota-bice.vercel.app/',
       'https://cartoon-kappa.vercel.app/',
       'https://cartoon-red.vercel.app/',
-      'https://cartoon-cloudflare-repo2.pages.dev/',
       'https://cartoon-cloudflare.pages.dev/',
       'https://cartoon-cloudflare-repo2-brs.pages.dev/',
       'https://cartoon-cloudflare-repo3.pages.dev/',

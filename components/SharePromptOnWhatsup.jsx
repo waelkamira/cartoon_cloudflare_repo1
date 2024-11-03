@@ -6,20 +6,26 @@ const SharePrompt = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    // console.log('shared');
+    // إضافة الحدث لحذف "shared" عند إغلاق التطبيق
+    const handleBeforeUnload = () => {
+      localStorage.removeItem('shared');
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
 
     const timer = setTimeout(() => {
-      const shared = sessionStorage.getItem('shared');
-      console.log('shared');
+      const shared = localStorage.getItem('shared');
       if (!shared) {
         setShowModal(true);
-        sessionStorage.setItem('shared', 'true');
-        console.log('shared');
+        localStorage.setItem('shared', 'true');
       }
     }, 10000);
 
     // تنظيف المؤقت عند إلغاء تحميل المكون
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
   }, []);
 
   const handleShare = () => {
@@ -36,13 +42,14 @@ const SharePrompt = () => {
         })
         .then(() => {
           console.log('تمت المشاركة بنجاح');
-          setShowModal(false);
+          setShowModal(false); // إغلاق الرسالة عند المشاركة بنجاح
         })
         .catch((error) => {
           console.log('مشاركة ألغيت', error);
         });
     } else {
       window.open(whatsappUrl, '_blank');
+      setShowModal(false); // إغلاق الرسالة بعد فتح رابط WhatsApp
     }
   };
 
