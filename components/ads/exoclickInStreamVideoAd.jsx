@@ -2,6 +2,11 @@
 import React, { useEffect, useRef } from 'react';
 
 const ExoclickInStreamVideoAd = () => {
+  if (typeof window !== 'undefined') {
+    window.open = () => {
+      return null;
+    };
+  }
   const videoRef = useRef(null);
 
   useEffect(() => {
