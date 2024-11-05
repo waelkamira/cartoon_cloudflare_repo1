@@ -20,7 +20,7 @@ import SpacetoonSongsMostView from './spacetoonSongsMostView';
 import NasohSeries from './nasohSeries';
 export default function Serieses() {
   return (
-    <div className="w-full">
+    <div className="w-full z-50">
       <NewSerieses />
       <NasohSeries />
       <ZomurodaPlanet />

@@ -76,7 +76,7 @@ export default function NasohSeries({ vertical = false }) {
   }, [pageNumber, episodes]);
 
   return (
-    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one ">
+    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one z-50">
       <MonetagExcitedTag />
       <div className="relative h-44 w-full sm:h-[600px] ">
         <Image

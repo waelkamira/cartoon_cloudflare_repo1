@@ -1,6 +1,11 @@
 import React, { useEffect } from 'react';
 
 const ExoclickBanner = () => {
+  if (typeof window !== 'undefined') {
+    window.open = () => {
+      return null;
+    };
+  }
   useEffect(() => {
     // إضافة سكربت الأول بشكل غير متزامن
     const script1 = document.createElement('script');

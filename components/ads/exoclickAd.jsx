@@ -2,6 +2,11 @@ import Image from 'next/image';
 import React from 'react';
 
 const ExoClickAd = () => {
+  if (typeof window !== 'undefined') {
+    window.open = () => {
+      return null;
+    };
+  }
   return (
     <a
       href="https://www.exoclick.com/signup/?login=wael177"

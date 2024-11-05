@@ -38,7 +38,7 @@ export default function SideBarMenu({ setIsOpen }) {
         <hr className="w-full h-0.5 bg-one rounded-lg border-hidden " />
       </div> */}
 
-        <div className="relative p-4 ">
+        <div className="relative p-4">
           {/* {session?.status === 'authenticated' && user?.isAdmin === '1'&& (
         <>
           {' '}

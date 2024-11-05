@@ -1,12 +1,14 @@
-import Link from 'next/link';
+'use client';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 import { TbArrowBigLeftLinesFilled } from 'react-icons/tb';
 
 export default function BackButton() {
+  const router = useRouter();
   console.log('clicked');
   return (
-    <Link
-      href={'/'}
+    <div
+      onClick={() => router.push('/')}
       className="fixed bottom-4 sm:top-4 left-4 xl:top-12 xl:left-12 z-50"
     >
       <div className=" flex items-center justify-center rounded-lg overflow-hidden cursor-pointer xl:w-fit z-50">
@@ -14,6 +16,6 @@ export default function BackButton() {
         <TbArrowBigLeftLinesFilled className=" absolute -top-[4px] -left-[3px] z-10 text-gray-400 text-[33px] sm:text-4xl lg:text-[44px]  transition-all duration-300  rounded-l-lg" />
       </div>
       <h1 className="text-white xl:hidden">رجوع</h1>
-    </Link>
+    </div>
   );
 }

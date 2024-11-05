@@ -74,7 +74,7 @@ export default function ZomurodaPlanetMostViewed() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 ">
+    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 z-50">
       <h1 className="w-full text-start p-2 text-white">الأكثر مشاهدة</h1>
 
       <div ref={zomurodaMostViewedSliderRef} className="keen-slider shadow-lg">

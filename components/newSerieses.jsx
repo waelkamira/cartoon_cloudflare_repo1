@@ -2,14 +2,11 @@
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import { inputsContext } from './Context';
 import Image from 'next/image';
 import Loading from './Loading';
-import {
-  MdKeyboardDoubleArrowRight,
-  MdKeyboardDoubleArrowLeft,
-} from 'react-icons/md';
+import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
 
 export default function NewSerieses() {
   const [pageNumber, setPageNumber] = useState(1);
@@ -17,6 +14,7 @@ export default function NewSerieses() {
   const { newSeries, deletedSeries } = useContext(inputsContext);
   const router = useRouter();
   const [showMessage, setShowMessage] = useState(true);
+  const videoRef = useRef(null);
 
   const [seriesesSliderRef, seriesesInstanceRef] = useKeenSlider({
     loop: false,
@@ -50,6 +48,16 @@ export default function NewSerieses() {
   useEffect(() => {
     if (seriesesInstanceRef.current) {
       seriesesInstanceRef.current.update();
+    }
+  }, [serieses]);
+
+  useEffect(() => {
+    // التمرير إلى الفيديو عند تحميل الصفحة
+    if (videoRef.current) {
+      videoRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
     }
   }, [serieses]);
 
@@ -87,7 +95,7 @@ export default function NewSerieses() {
   };
 
   return (
-    <div className="w-full overflow-x-hidden p-2">
+    <div ref={videoRef} className="w-full overflow-x-hidden p-2 z-20">
       <h1 className="w-full text-start p-2 text-white">جديد</h1>
       {showMessage && (
         <div className="relative w-full flex items-center justify-between text-white h-12  text-2xl px-2 ">

@@ -13,10 +13,16 @@ export default function ItemForSideBarMenu({
     <div>
       <Link
         href={planetRoute}
-        className="flex justify-start gap-2 items-center hover:shadow-md rounded-lg"
+        className="flex justify-start gap-2 items-center rounded-lg"
       >
         <div className="relative h-14 w-16 my-1">
-          <Image priority src={planetImage} fill alt={'photo'} />
+          <Image
+            priority
+            src={planetImage}
+            fill
+            alt={'photo'}
+            className="noOpacity"
+          />
         </div>
         <h5 className="text-black text-sm">{planetName}</h5>
       </Link>

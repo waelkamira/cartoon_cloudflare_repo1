@@ -231,7 +231,7 @@ export default function SeriesAndEpisodes() {
                   onNextEpisode={handleNextEpisode} // تمرير دالة الانتقال للحلقة التالية
                 />
                 <ContactUs />
-                <ExoclickOutStreamVideo render={episode?.episodeLink} />
+                {/* <ExoclickOutStreamVideo render={episode?.episodeLink} />
                 <ExoclickVideoSlider render={episode?.episodeLink} />
                 <ExoclickBanner render={episode?.episodeLink} />
                 <ExoClickAd />
@@ -244,7 +244,7 @@ export default function SeriesAndEpisodes() {
                 <JuicyAdsAd />
                 <JuicyAdsAdVideo />
                 <JuicyAdsImage />
-                <MonetagInPagePush render={episode?.episodeLink} />
+                <MonetagInPagePush render={episode?.episodeLink} /> */}
                 {/* <MonetagExcitedTag render={episode?.episodeLink} /> */}
                 {/* <HillTopAdsVideoSlider /> */}
                 {/* <HillTopAdsVideo /> */}

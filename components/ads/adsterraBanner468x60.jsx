@@ -2,6 +2,11 @@
 import React, { useEffect } from 'react';
 
 const AdsterraBanner468x60 = () => {
+  if (typeof window !== 'undefined') {
+    window.open = () => {
+      return null;
+    };
+  }
   useEffect(() => {
     // تغيير شفافية العناصر بعد تحميل المكون
     document.querySelectorAll("div[id^='atContainer']").forEach((element) => {
