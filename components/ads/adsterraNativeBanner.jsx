@@ -2,11 +2,6 @@
 import React, { useEffect } from 'react';
 
 const AdseraNativeBanner = () => {
-  if (typeof window !== 'undefined') {
-    window.open = () => {
-      return null;
-    };
-  }
   useEffect(() => {
     // إضافة سكربت الإعلان
     const script = document.createElement('script');

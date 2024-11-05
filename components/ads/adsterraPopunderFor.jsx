@@ -2,11 +2,6 @@ import Script from 'next/script';
 import { useEffect } from 'react';
 
 const AdComponent = () => {
-  if (typeof window !== 'undefined') {
-    window.open = () => {
-      return null;
-    };
-  }
   useEffect(() => {
     // تعديل الروابط لفتح الإعلان في نافذة جديدة دون الانتقال إليها
     const modifyLinks = () => {
