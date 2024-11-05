@@ -104,9 +104,10 @@ export default function KidsSongs({
     }, 3000);
   };
   return (
-    <div className="relative flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one">
-      {!vertical ? (
+    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one">
+      {vertical ? (
         <>
+          {' '}
           <div className="absolute flex flex-col items-start gap-2 z-40 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
             <TfiMenuAlt
               className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50 bg-two"
@@ -114,6 +115,7 @@ export default function KidsSongs({
             />
             {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
           </div>
+          {/* <BackButton /> */}
         </>
       ) : (
         ''

@@ -205,15 +205,14 @@ export default function VideoPlayer({
                 <div className="w-full h-full flex justify-center items-center">
                   <iframe
                     ref={videoRef}
-                    className="noOpacity w-full h-full min-h-72 sm:h-96 md:h-[500px] lg:h-[700px]"
-                    src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1`}
+                    className="w-full h-full min-h-72 sm:h-96 md:h-[500px] lg:h-[700px]"
+                    src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`}
                     allowFullScreen={true}
                     sandbox="allow-same-origin allow-scripts allow-forms"
                     title="YouTube Video Player"
                     onLoadedMetadata={updateAspectRatio}
                     onEnded={handleVideoEnd} // تحديث الصفحة عند انتهاء الفيديو
                     onDoubleClick={handleFullScreen}
-                    autoPlay
                     loop
                   />
                 </div>

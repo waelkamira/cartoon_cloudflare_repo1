@@ -106,7 +106,7 @@ export default function ZomurodaPlanet({ vertical = false }) {
     }
   }
   return (
-    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one z-50">
+    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one">
       {vertical ? (
         <div className="absolute flex flex-col items-start gap-2 z-40 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
           <TfiMenuAlt
