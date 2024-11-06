@@ -7,11 +7,8 @@ import SideBarMenu from '../../components/SideBarMenu';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import SpacetoonSongs from '../../components/spacetoonSongs';
-import MonetagExcitedTag from '../../components/ads/MonetagExcitedTag';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
 import VideoPlayer from '../../components/VideoPlayer';
-import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
-import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
@@ -87,7 +84,6 @@ export default function Page() {
           <h1 className="grow text-sm lg:text-2xl w-full text-white">
             <span className="text-gray-500 ml-2">#</span>
             اسم الأغنية: <span>{spacetoonSong[0]?.spacetoonSongName}</span>
-            <MonetagExcitedTag render={spacetoonSong[0]?.spacetoonSongName} />
           </h1>
         </div>
 
@@ -103,7 +99,6 @@ export default function Page() {
                     className=" flex flex-col items-center justify-center rounded-lg overflow-hidden w-full"
                     key={item.spacetoonSongLink}
                   >
-                    <ExoclickOutStreamVideo />
                     <VideoPlayer
                       videoUrl={item.spacetoonSongLink}
                       image={item?.spacetoonSongImage}
@@ -115,7 +110,6 @@ export default function Page() {
           </div>
         </div>
       </div>
-      {/* <ExoclickVideoSlider /> */}
 
       <SpacetoonSongs vertical={true} title={false} image={false} />
       <div className="p-2">

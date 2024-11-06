@@ -9,9 +9,6 @@ import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import VideoPlayer from '../../components/VideoPlayer';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
-import MonetagExcitedTag from '../../components/ads/MonetagExcitedTag';
-import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
-import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
@@ -90,7 +87,6 @@ overflow-y-auto"
             <span className="text-gray-500 ml-2">#</span>
             اسم الفيلم:
             <span> {movie[0]?.movieName}</span>
-            <MonetagExcitedTag render={movie[0]?.movieName} />
           </h1>
           {showMessage && (
             <h1 className="text-yellow-400 ">
@@ -109,7 +105,6 @@ overflow-y-auto"
             {movie?.length > 0 &&
               movie.map((item, index) => (
                 <div key={index} className="w-full h-fit">
-                  <ExoclickOutStreamVideo />
                   <VideoPlayer
                     videoUrl={item?.movieLink}
                     showAd={isTrue}

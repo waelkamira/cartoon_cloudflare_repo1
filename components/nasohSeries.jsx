@@ -5,7 +5,6 @@ import 'keen-slider/keen-slider.min.css';
 import { useRouter } from 'next/navigation';
 import Loading from './Loading';
 import Image from 'next/image';
-import MonetagExcitedTag from './ads/MonetagExcitedTag';
 
 export default function NasohSeries({ vertical = false }) {
   const [episodes, setEpisodes] = useState([]);
@@ -77,7 +76,6 @@ export default function NasohSeries({ vertical = false }) {
 
   return (
     <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one ">
-      <MonetagExcitedTag />
       <div className="relative h-44 w-full sm:h-[600px] ">
         <Image
           src={'https://i.imgur.com/u6grI22.png'}

@@ -9,26 +9,6 @@ import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
 
-import MonetagExcitedTag from '../../components/ads/MonetagExcitedTag';
-import MonetagInPagePush from '../../components/ads/MonetagInPagePush';
-import AdsterraNativeBanner from '../../components/ads/adsterraNativeBanner';
-import AdsterraBanner from '../../components/ads/adsterraBanner';
-import AdsterraBanner468x60 from '../../components/ads/adsterraBanner468x60';
-import AdsterraPopunderFor from '../../components/ads/adsterraPopunderFor';
-import ExoclickBanner from '../../components/ads/exoclickBanner';
-import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
-import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
-import ExoClickAd from '../../components/ads/exoclickAd';
-import ExoclickNative from '../../components/ads/exoclickNative';
-import ExoclickInStreamVideoAd from '../../components/ads/exoclickInStreamVideoAd';
-import JuicyAdsAd from '../../components/ads/JuicyAdsAd';
-import JuicyAdsAdVideo from '../../components/ads/JuicyAdsAdVideo';
-import JuicyAdsImage from '../../components/ads/JuicyAdsImage';
-import HillTopAdsVideo from '../../components/ads/HillTopAdsVideo';
-import HillTopAdsVideoSlider from '../../components/ads/HillTopAdsVideoSlider';
-import HillTopAdsMultiTagBanner from '../../components/ads/HillTopAdsMultiTagBanner';
-import HillTopAdsMultiTagBannerMobile from '../../components/ads/HillTopAdsMultiTagBannerMobile';
-
 export default function SeriesAndEpisodes() {
   const [episodes, setEpisodes] = useState([]);
   const [episodeNumber, setEpisodeNumber] = useState(1); // حالة للتحكم برقم الحلقة
@@ -131,7 +111,7 @@ export default function SeriesAndEpisodes() {
   };
 
   return (
-    <div className="relative w-full h-[1000px] sm:p-4 lg:p-8 rounded-lg bg-one overflow-y-auto">
+    <div className="relative w-full h-[1000px] sm:p-4 lg:p-8  bg-one overflow-y-auto">
       <div className="absolute flex flex-col items-start gap-2 z-40 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
         <TfiMenuAlt
           className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
@@ -231,23 +211,6 @@ export default function SeriesAndEpisodes() {
                   onNextEpisode={handleNextEpisode} // تمرير دالة الانتقال للحلقة التالية
                 />
                 <ContactUs />
-                {/* <ExoclickOutStreamVideo render={episode?.episodeLink} />
-                <ExoclickVideoSlider render={episode?.episodeLink} />
-                <ExoclickBanner render={episode?.episodeLink} />
-                <ExoClickAd />
-                <ExoclickNative />
-                <AdsterraBanner />
-                <AdsterraNativeBanner />
-                <AdsterraBanner468x60 />
-                <HillTopAdsMultiTagBannerMobile render={episode?.episodeLink} />
-                <HillTopAdsMultiTagBanner render={episode?.episodeLink} />
-                <JuicyAdsAd />
-                <JuicyAdsAdVideo />
-                <JuicyAdsImage />
-                <MonetagInPagePush render={episode?.episodeLink} /> */}
-                {/* <MonetagExcitedTag render={episode?.episodeLink} /> */}
-                {/* <HillTopAdsVideoSlider /> */}
-                {/* <HillTopAdsVideo /> */}
               </div>
             </div>
           ))}

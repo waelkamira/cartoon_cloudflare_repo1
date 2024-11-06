@@ -8,9 +8,6 @@ import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import MonetagExcitedTag from '../../components/ads/MonetagExcitedTag';
-import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
-import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
 
 export default function Page() {
   const [episodes, setEpisodes] = useState([]);
@@ -213,11 +210,9 @@ overflow-y-auto"
                 className="flex flex-col items-center justify-start  overflow-hidden"
               >
                 <div className={'w-full'}>
-                  <MonetagExcitedTag render={episode?.episodeLink} />
                   <h1 className="text-white text-center p-2">
                     {episode?.episodeName}
                   </h1>
-                  <ExoclickOutStreamVideo />
                   <VideoPlayer
                     videoUrl={episode?.episodeLink}
                     image={episodeImage}
@@ -242,7 +237,6 @@ overflow-y-auto"
                     الحلقة السابقة
                   </button>
                 </div>
-                {/* <ExoclickVideoSlider /> */}
               </div>
             ))}
           </div>

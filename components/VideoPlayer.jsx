@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import LoadingPhoto from './LoadingPhoto';
-import MonetagExcitedTag from './ads/MonetagExcitedTag';
 
 export default function VideoPlayer({
   videoUrl = ' ',
@@ -188,7 +187,6 @@ export default function VideoPlayer({
     >
       {videoId ? (
         <div className="w-full">
-          <MonetagExcitedTag />
           {isAdPlaying ? (
             <div className="w-full h-full flex justify-center items-center">
               <video

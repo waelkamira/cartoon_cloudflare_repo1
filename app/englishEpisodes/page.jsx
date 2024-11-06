@@ -8,10 +8,7 @@ import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import MonetagExcitedTag from '../../components/ads/MonetagExcitedTag';
 import EnglishCartoon from '../../components/englishCartoon';
-import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
-import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
 
 export default function Page() {
   const [episodes, setEpisodes] = useState([]);
@@ -123,8 +120,6 @@ overflow-y-auto"
                   className="flex flex-col items-center justify-start  overflow-hidden"
                 >
                   <div className={'w-full'}>
-                    <MonetagExcitedTag render={episode?.episodeLink} />
-                    <ExoclickOutStreamVideo />
                     <h1 className="text-white text-center p-2">
                       {episode?.episodeName}
                     </h1>
@@ -134,7 +129,6 @@ overflow-y-auto"
                       episodeName={episode?.episodeName}
                     />
                   </div>
-                  {/* <ExoclickVideoSlider /> */}
                   <EnglishCartoon vertical={true} image={false} />
                 </div>
               );
