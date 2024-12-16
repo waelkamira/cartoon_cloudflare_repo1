@@ -1,7 +1,7 @@
 'use client';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState, useContext } from 'react';
 import { inputsContext } from './Context';
 import Image from 'next/image';
@@ -11,11 +11,7 @@ import SideBarMenu from './SideBarMenu';
 import BackButton from './BackButton';
 import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
 
-export default function SpacetoonSongs({
-  vertical = false,
-  image = true,
-  title = true,
-}) {
+export default function SpacetoonSongs({ image = true, title = true }) {
   const [pageNumber, setPageNumber] = useState(1);
   const [spacetoonSongs, setSpacetoonSongs] = useState([]);
   const { newSpacetoonSong, dispatch } = useContext(inputsContext);
@@ -23,8 +19,9 @@ export default function SpacetoonSongs({
   const [isOpen, setIsOpen] = useState(false);
   const [showMessage, setShowMessage] = useState(true);
   const [previousPath, setPreviousPath] = useState('');
+  const [vertical, setVertical] = useState(false);
+  const path = usePathname();
 
-  // console.log('newSpacetoonSong', newSpacetoonSong);
   const [spacetoonSongsSliderRef, spacetoonSongsInstanceRef] = useKeenSlider({
     loop: false,
     mode: 'free',
@@ -50,6 +47,23 @@ export default function SpacetoonSongs({
       }
     },
   });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const handleResize = () => {
+        setVertical(window.innerWidth < 768 && path !== '/');
+      };
+
+      // تعيين الحالة عند التحميل الأول
+      handleResize();
+
+      // إضافة مستمع لحدث تغيير الحجم
+      window.addEventListener('resize', handleResize);
+
+      // تنظيف المستمع عند إلغاء المكون
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
 
   useEffect(() => {
     fetchSpacetoonSongs();
@@ -93,17 +107,17 @@ export default function SpacetoonSongs({
     }
   }
 
-  const handleSongClick = (songName) => {
+  const handleSongClick = (songId) => {
     // احفظ المسار السابق
     const currentPath = window.location.pathname + window.location.search;
     setPreviousPath(currentPath);
 
     // التنقل إلى صفحة الأغنية
-    router.push(`/spacetoonSong?spacetoonSongName=${songName}`);
+    router.push(`/spacetoonSong?spacetoonSongId=${songId}`);
     setTimeout(() => {
       const newPath = window.location.pathname + window.location.search;
-      // console.log('newPath', newPath);
-      // console.log('currentPath', currentPath);
+      console.log('newPath', newPath);
+      console.log('currentPath', currentPath);
 
       // تحديث الصفحة فقط إذا تغير المسار
       if (newPath !== previousPath && newPath.includes('/spacetoonSong')) {
@@ -113,29 +127,22 @@ export default function SpacetoonSongs({
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 ">
-      {vertical ? (
-        <>
-          {' '}
-          <div className="absolute flex flex-col items-start gap-2 z-40 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
-            <TfiMenuAlt
-              className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
-              onClick={() => setIsOpen(!isOpen)}
-            />
-            {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
-          </div>
-          {/* <BackButton /> */}
-        </>
-      ) : (
-        ''
-      )}
+    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 sm:mt-24">
+      <div className="absolute flex flex-col items-start gap-2 z-30 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
+        {/* <TfiMenuAlt
+          className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
+          onClick={() => setIsOpen(!isOpen)}
+        />
+        {isOpen && <SideBarMenu setIsOpen={setIsOpen} />} */}
+      </div>
 
       {image ? (
         <div className="relative h-32 w-52 sm:h-60 sm:w-96">
           <Image
+            loading="lazy"
             src={'https://i.imgur.com/BWPdDAF.png'}
             layout="fill"
-            objectFit="cover"
+            objectFit="conatin"
             alt={'زمردة'}
           />{' '}
         </div>
@@ -152,7 +159,7 @@ export default function SpacetoonSongs({
         ''
       )}
       {showMessage && (
-        <div className="relative w-full flex items-center justify-between text-white h-12  text-2xl px-2 ">
+        <div className="relative w-full flex items-center justify-between animate-pulse text-white h-12  text-2xl px-2 ">
           <MdKeyboardDoubleArrowRight />
 
           <h6 className="text-sm w-full text-start">اسحب لمزيد من الأغاني</h6>
@@ -173,26 +180,12 @@ export default function SpacetoonSongs({
             <div
               key={song?.id}
               className="keen-slider__slide snap-center flex flex-col items-center justify-start flex-shrink-0 px-2 w-full"
-              // onClick={() => {
-              //   dispatch({
-              //     type: 'SPACETOON_SONG_NAME',
-              //     payload: song?.spacetoonSongName,
-              //   });
-
-              //   // التنقل إلى الرابط الجديد
-              // router.push(
-              //   `/spacetoonSong?spacetoonSongName=${song?.spacetoonSongName}`
-              // );
-              //   setTimeout(() => {
-              //     window?.location?.reload();
-              //   }, 3000);
-              // }}
               onClick={() => {
                 dispatch({
                   type: 'SPACETOON_SONG_NAME',
-                  payload: song?.spacetoonSongName,
+                  payload: song?.id,
                 });
-                handleSongClick(song?.spacetoonSongName);
+                handleSongClick(song?.id);
               }}
             >
               <div
@@ -202,6 +195,7 @@ export default function SpacetoonSongs({
                 }
               >
                 <Image
+                  loading="lazy"
                   src={song?.spacetoonSongImage}
                   layout="fill"
                   objectFit="cover"

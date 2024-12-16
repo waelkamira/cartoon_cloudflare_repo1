@@ -9,6 +9,9 @@ import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import VideoPlayer from '../../components/VideoPlayer';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
+import { useSession } from 'next-auth/react';
+import SubscriptionPage from '../../components/paypal/subscriptionPage';
+import CurrentUser from '../../components/CurrentUser';
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,6 +20,8 @@ export default function Page() {
   const [movieName, setMovieName] = useState('');
   const [showMessage, setShowMessage] = useState(true);
   const [isTrue, setIsTrue] = useState(true);
+  const session = useSession();
+  const user = CurrentUser();
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -55,21 +60,22 @@ export default function Page() {
 
   return (
     <>
-      <div
-        className=" w-full sm:p-4 lg:p-8 rounded-lg bg-one h-[1000px]
-overflow-y-auto"
-      >
-        <div className="absolute flex flex-col items-start gap-2 z-40 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12 ">
-          <TfiMenuAlt
+      {session?.status === 'authenticated' &&
+        user?.monthly_subscribed === false &&
+        user?.yearly_subscribed === false && <SubscriptionPage />}
+
+      <div className=" w-full sm:p-4 lg:p-8 rounded-lg bg-one h-[1000px] overflow-y-auto">
+        <div className="absolute flex flex-col items-start gap-2 z-30 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12 ">
+          {/* <TfiMenuAlt
             className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
             onClick={() => setIsOpen(!isOpen)}
           />
-          {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
+          {isOpen && <SideBarMenu setIsOpen={setIsOpen} />} */}
         </div>
-        <div className="relative w-full h-72 sm:h-[500px] overflow-hidden z-40">
+        <div className="relative w-full h-72 sm:h-[500px] overflow-hidden z-30">
           {movie[0]?.movieImage ? (
             <Image
-              priority
+              loading="lazy"
               src={movie[0]?.movieImage}
               layout="fill"
               objectFit="cover"
@@ -89,7 +95,7 @@ overflow-y-auto"
             <span> {movie[0]?.movieName}</span>
           </h1>
           {showMessage && (
-            <h1 className="text-yellow-400 ">
+            <h1 className="text-yellow-400 p-2">
               الرجاء الإنتظار قليلا ... جاري إحضار الفيلم ربما تحتاج للضغط عدة
               مرات على الزر ليعمل لاننا نقوم بمنع الاعلانات المنبثقة المزعجة
             </h1>
@@ -101,7 +107,7 @@ overflow-y-auto"
             <Loading myMessage={'😉لا يوجد نتائج لعرضها'} />
           )}
 
-          <div className=" flex justify-center items-center w-full h-full">
+          <div className=" flex-col gap-32 my-32 justify-evenly items-center w-full h-full">
             {movie?.length > 0 &&
               movie.map((item, index) => (
                 <div key={index} className="w-full h-fit">
@@ -113,7 +119,6 @@ overflow-y-auto"
                 </div>
               ))}
           </div>
-          {/* <ExoclickVideoSlider /> */}
 
           <ContactUs />
         </div>

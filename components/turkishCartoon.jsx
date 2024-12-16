@@ -1,7 +1,7 @@
 'use client';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState, useContext } from 'react';
 import { inputsContext } from './Context';
 import Loading from './Loading';
@@ -15,7 +15,7 @@ import CurrentUser from './CurrentUser';
 import { useSession } from 'next-auth/react';
 import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
 
-export default function TurkishCartoon({ vertical = false, image }) {
+export default function TurkishCartoon({ image }) {
   const [pageNumber, setPageNumber] = useState(1);
   const [turkishCartoon, setTurkishCartoon] = useState([]);
   const { newSeries, deletedSeries } = useContext(inputsContext);
@@ -25,6 +25,8 @@ export default function TurkishCartoon({ vertical = false, image }) {
   const session = useSession();
   const [showMessage, setShowMessage] = useState(true);
   const [previousPath, setPreviousPath] = useState('');
+  const [vertical, setVertical] = useState(false);
+  const path = usePathname();
 
   // console.log('user', user);
   // console.log('vertical', vertical);
@@ -53,6 +55,23 @@ export default function TurkishCartoon({ vertical = false, image }) {
       }
     },
   });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const handleResize = () => {
+        setVertical(window.innerWidth < 768 && path !== '/');
+      };
+
+      // تعيين الحالة عند التحميل الأول
+      handleResize();
+
+      // إضافة مستمع لحدث تغيير الحجم
+      window.addEventListener('resize', handleResize);
+
+      // تنظيف المستمع عند إلغاء المكون
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
 
   useEffect(() => {
     fetchTurkishCartoon();
@@ -133,38 +152,35 @@ export default function TurkishCartoon({ vertical = false, image }) {
   };
   return (
     <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one">
-      {vertical ? (
-        <div className="absolute flex flex-col items-start gap-2 z-40 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
-          <TfiMenuAlt
-            className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
-            onClick={() => setIsOpen(!isOpen)}
-          />
-          {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
-        </div>
-      ) : (
-        ''
-      )}
+      <div className="absolute flex flex-col items-start gap-2 z-30 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
+        {/* <TfiMenuAlt
+          className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
+          onClick={() => setIsOpen(!isOpen)}
+        />
+        {isOpen && <SideBarMenu setIsOpen={setIsOpen} />} */}
+      </div>
 
       {image ? (
         <>
-          <div className="relative h-64 w-full sm:h-64 sm:w-80">
+          <div className="relative h-64 w-full sm:h-64 sm:w-80 sm:mt-24">
             <Image
+              loading="lazy"
               src={'https://i.imgur.com/gfdEgLt.png'}
               layout="fill"
-              objectFit="cover"
+              objectFit="conatin"
               alt={'turkishCartoon'}
             />{' '}
           </div>
 
           <h1 className="w-fit text-start p-2 text-white my-2 bg-one">
-            Turkish Cartoon
+            Türk çizgi filmi{' '}
           </h1>
         </>
       ) : (
         ''
       )}
       {showMessage && (
-        <div className="relative w-full flex items-center justify-between text-white h-12  text-2xl px-2 ">
+        <div className="relative w-full flex items-center justify-between animate-pulse text-white h-12  text-2xl px-2 ">
           <MdKeyboardDoubleArrowRight />
 
           <h6 className="text-sm w-full text-start">
@@ -209,6 +225,7 @@ export default function TurkishCartoon({ vertical = false, image }) {
                   }
                 >
                   <Image
+                    loading="lazy"
                     src={episode?.episodeImage}
                     layout="fill"
                     objectFit="cover"

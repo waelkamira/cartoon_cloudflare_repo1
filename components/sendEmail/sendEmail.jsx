@@ -116,7 +116,7 @@ export const ContactUs = () => {
                 className="w-full rounded-lg p-2 outline-none shadow-none focus:border-primary border-secondary tex-lg sm:text-xl min-h-[200px] placeholder:text-sm placeholder:sm:text-lg"
               />
             </div>
-            <div>
+            <div onClick={() => setIsOpen(false)}>
               <Button title={'إرسال'} type="submit" style={' '} />
             </div>
           </form>

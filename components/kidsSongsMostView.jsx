@@ -8,7 +8,6 @@ import Image from 'next/image';
 import Loading from './Loading';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import SideBarMenu from './SideBarMenu';
-import BackButton from './BackButton';
 
 export default function KidsSongs({
   vertical = false,
@@ -58,12 +57,12 @@ export default function KidsSongs({
     }
   }, [songs, newSong]);
 
-  const handleSongClick = (songName) => {
+  const handleSongClick = (songId) => {
     const currentPath = window?.location?.pathname + window?.location?.search;
     setPreviousPath(currentPath);
 
     // التنقل إلى صفحة الأغنية
-    router.push(`/song?songName=${songName}`);
+    router.push(`/song?songId=${songId}`);
     setTimeout(() => {
       const newPath = window?.location?.pathname + window?.location?.search;
       if (newPath !== previousPath && newPath.includes('/song')) {
@@ -73,7 +72,9 @@ export default function KidsSongs({
   };
   async function fetchSongs() {
     try {
-      const response = await fetch(`/api/songs?page=${pageNumber}&limit=4`);
+      const response = await fetch(
+        `/api/songs?page=${pageNumber}&limit=4&random=false`
+      );
       const json = await response.json();
       if (response.ok) {
         // console.log('songs', songs);
@@ -95,12 +96,12 @@ export default function KidsSongs({
       {vertical ? (
         <>
           {' '}
-          <div className="absolute flex flex-col items-start gap-2 z-40 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
-            <TfiMenuAlt
+          <div className="absolute flex flex-col items-start gap-2 z-30 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
+            {/* <TfiMenuAlt
               className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50 bg-two"
               onClick={() => setIsOpen(!isOpen)}
             />
-            {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
+            {isOpen && <SideBarMenu setIsOpen={setIsOpen} />} */}{' '}
           </div>
           {/* <BackButton /> */}
         </>
@@ -137,9 +138,9 @@ export default function KidsSongs({
               onClick={() => {
                 dispatch({
                   type: 'KIDS_SONG_NAME',
-                  payload: song?.songName,
+                  payload: song?.id,
                 });
-                handleSongClick(song?.songName);
+                handleSongClick(song?.id);
               }}
             >
               <div
@@ -149,10 +150,11 @@ export default function KidsSongs({
                 }
               >
                 <Image
+                  loading="lazy"
                   src={song?.songImage}
                   layout="fill"
                   objectFit="cover"
-                  alt={song?.songName}
+                  alt={song?.id}
                 />
               </div>
               <h1 className="text-white text-center m-2 text-[10px] sm:text-[15px] w-full line-clamp-2 font-bold">

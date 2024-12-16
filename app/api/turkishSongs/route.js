@@ -6,7 +6,7 @@ const cache = {
   lastUpdated: null,
 };
 
-const CACHE_DURATION = 15 * 60 * 1000; // 15 دقيقة
+const CACHE_DURATION = 15 * 60 * 1000; // 15 minutes
 
 // رابط ملف CSV المستضاف على GitHub
 const csvUrl =
@@ -20,6 +20,7 @@ function isCacheValid() {
 // قراءة ملف CSV من الرابط وتحويله إلى JSON باستخدام PapaParse
 async function readCSVFile(url) {
   const response = await fetch(url);
+  if (!response.ok) throw new Error('Failed to fetch CSV file');
   const csvText = await response.text();
   return new Promise((resolve, reject) => {
     Papa.parse(csvText, {
@@ -43,7 +44,7 @@ export async function GET(req) {
   try {
     let songs;
 
-    // تحقق من الكاش إذا كان صالحًا
+    // التحقق من الكاش إذا كان صالحًا
     if (isCacheValid()) {
       songs = cache.data;
     } else {
@@ -62,7 +63,7 @@ export async function GET(req) {
       );
     }
 
-    // إذا كان random=true، نقوم بخلط الأغاني عشوائياً
+    // إذا كان random=true، نقوم بخلط الأغاني عشوائيًا
     if (random) {
       songs.sort(() => 0.5 - Math.random());
     } else {

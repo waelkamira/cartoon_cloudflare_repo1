@@ -1,7 +1,7 @@
 'use client';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState, useContext } from 'react';
 import { inputsContext } from './Context';
 import Loading from './Loading';
@@ -16,7 +16,7 @@ import CurrentUser from './CurrentUser';
 import { useSession } from 'next-auth/react';
 import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
 
-export default function AdventuresPlanet({ vertical = false }) {
+export default function AdventuresPlanet() {
   const [pageNumber, setPageNumber] = useState(1);
   const [adventures, setAdventures] = useState([]);
   const { newSeries, deletedSeries, dispatch } = useContext(inputsContext);
@@ -25,7 +25,24 @@ export default function AdventuresPlanet({ vertical = false }) {
   const user = CurrentUser();
   const session = useSession();
   const [showMessage, setShowMessage] = useState(true);
+  const path = usePathname();
+  const [vertical, setVertical] = useState(false);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const handleResize = () => {
+        setVertical(window.innerWidth < 768 && path !== '/');
+      };
 
+      // تعيين الحالة عند التحميل الأول
+      handleResize();
+
+      // إضافة مستمع لحدث تغيير الحجم
+      window.addEventListener('resize', handleResize);
+
+      // تنظيف المستمع عند إلغاء المكون
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
   const [adventuresSliderRef, adventuresInstanceRef] = useKeenSlider({
     loop: false,
     mode: 'free',
@@ -112,25 +129,22 @@ export default function AdventuresPlanet({ vertical = false }) {
     }
   }
   return (
-    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one">
-      {vertical ? (
-        <div className="absolute flex flex-col items-start gap-2 z-40 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
-          <TfiMenuAlt
-            className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
-            onClick={() => setIsOpen(!isOpen)}
-          />
-          {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
-        </div>
-      ) : (
-        ''
-      )}
+    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one sm:mt-24">
+      <div className="absolute flex flex-col items-start gap-2 z-30 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
+        {/* <TfiMenuAlt
+          className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
+          onClick={() => setIsOpen(!isOpen)}
+        />
+        {isOpen && <SideBarMenu setIsOpen={setIsOpen} />} */}
+      </div>
 
       <>
-        <div className="relative h-52 w-52 sm:h-80 sm:w-80">
+        <div className="relative h-52 w-64 sm:w-1/4 sm:h-[300px] lg:h-[450px]">
           <Image
+            loading="lazy"
             src={'https://i.imgur.com/sUeBEaz.png'}
             layout="fill"
-            objectFit="cover"
+            objectFit="conatin"
             alt={'مغامرات'}
           />{' '}
         </div>
@@ -151,7 +165,7 @@ export default function AdventuresPlanet({ vertical = false }) {
         </h1>
       )}
       {showMessage && (
-        <div className="relative w-full flex items-center justify-between text-white h-12  text-2xl px-2 ">
+        <div className="relative w-full flex items-center justify-between animate-pulse text-white h-12  text-2xl px-2 ">
           <MdKeyboardDoubleArrowRight />
 
           <h6 className="text-sm w-full text-start">
@@ -201,6 +215,7 @@ export default function AdventuresPlanet({ vertical = false }) {
                   }
                 >
                   <Image
+                    loading="lazy"
                     src={series?.seriesImage}
                     layout="fill"
                     objectFit="cover"

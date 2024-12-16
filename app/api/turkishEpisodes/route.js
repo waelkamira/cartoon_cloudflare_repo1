@@ -9,11 +9,12 @@ const CACHE_TTL = 15 * 60 * 1000; // 15 minutes
 const turkishEpisodesUrl =
   'https://raw.githubusercontent.com/waelkamira/csv/refs/heads/main/turkishCartoon.csv';
 
-// دالة لجلب وتحليل محتوى CSV من رابط
+// دالة لجلب وتحليل محتوى CSV من الرابط
 async function fetchCsvData(url) {
   const response = await fetch(url);
+  if (!response.ok) throw new Error('Failed to fetch CSV data');
   const csvText = await response.text();
-  return Papa.parse(csvText, { header: true }).data;
+  return Papa.parse(csvText, { header: true, skipEmptyLines: true }).data;
 }
 
 export async function GET(req) {
@@ -22,11 +23,10 @@ export async function GET(req) {
   const episodeName = searchParams.get('episodeName') || '';
   const cacheKey = `episode-${episodeName}`;
   const cachedData = cache.get(cacheKey);
-  console.log('episodeName', episodeName);
 
-  // التحقق إذا كانت البيانات موجودة في الكاش ولم تنتهي مدة صلاحيتها
+  // التحقق إذا كانت البيانات في الكاش ولا تزال صالحة
   if (cachedData && Date.now() - cachedData.timestamp < CACHE_TTL) {
-    console.log('Serving from cache:', episodeName);
+    // console.log('Serving from cache:', episodeName);
     return new Response(JSON.stringify(cachedData.data), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
@@ -34,11 +34,13 @@ export async function GET(req) {
   }
 
   try {
+    // جلب الحلقات من CSV إذا لم تكن موجودة في الكاش
     const turkishEpisodes = await fetchCsvData(turkishEpisodesUrl);
+
+    // البحث عن الحلقة المطلوبة
     const episode = turkishEpisodes.find((ep) =>
-      ep.episodeName.includes(episodeName)
+      ep.episodeName.toLowerCase().includes(episodeName.toLowerCase())
     );
-    console.log('episode', episode);
 
     if (!episode) {
       return new Response(JSON.stringify({ error: 'Episode not found' }), {
@@ -47,7 +49,7 @@ export async function GET(req) {
       });
     }
 
-    // تخزين البيانات في الكاش
+    // تخزين الحلقة في الكاش
     cache.set(cacheKey, {
       data: [episode],
       timestamp: Date.now(),

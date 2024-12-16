@@ -77,15 +77,15 @@ export default function Users() {
     <div className="relative flex flex-col justify-center items-center w-full bg-gray-800 rounded-lg text-lg text-white">
       {/* <BackButton /> */}
       <div className="absolute flex flex-col items-start gap-2 z-50 top-2 right-2 sm:top-4 sm:right-4">
-        <TfiMenuAlt
+        {/* <TfiMenuAlt
           className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
           onClick={() => {
             setIsOpen(!isOpen);
           }}
         />
-        {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
+        {isOpen && <SideBarMenu setIsOpen={setIsOpen} />} */}
       </div>
-      <div className="flex gap-4 justify-center items-center bg-gray-700 rounded-lg text-lg text-white w-full p-4 mt-16 xl:mt-24 shadow-lg">
+      <div className="flex gap-4 justify-center items-center bg-gray-700 rounded-lg text-lg text-white w-full p-4 mt-16 xl:sm:mt-24 shadow-lg">
         <input
           value={findUser}
           onChange={(e) => setFindUser(e.target.value)}

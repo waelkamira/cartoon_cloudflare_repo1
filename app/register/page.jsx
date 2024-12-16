@@ -11,6 +11,7 @@ import Image from 'next/image';
 import { signIn, useSession } from 'next-auth/react';
 import CustomToast from '../../components/CustomToast';
 import { useEffect } from 'react';
+import { TbDoorEnter } from 'react-icons/tb';
 
 export default function RegisterPage() {
   const session = useSession();
@@ -38,93 +39,35 @@ export default function RegisterPage() {
     }
   }, [router, session?.data?.user?.email]);
 
-  // async function onSubmit() {
-  //   // console.log('getValues', getValues());
-  //   if (getValues()?.name === '') {
-  //     setError('name', {
-  //       type: 'custom',
-  //       message: 'اسم المستخدم مطلوب',
-  //     });
-  //     return;
-  //   } else if (getValues()?.email === '') {
-  //     setError('email', {
-  //       type: 'custom',
-  //       message: 'عنوان البريد الإلكتروني مطلوب',
-  //     });
-  //     return;
-  //   } else if (getValues()?.password?.length < 5) {
-  //     setError('password', {
-  //       type: 'custom',
-  //       message:
-  //         'طول كلمة السر يجب أن يكون 5 أحرف (أو 5 أرقام وأحرف) على الأقل',
-  //     });
-  //     return;
-  //   }
-
-  //   const response = await fetch('/api/register', {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify(getValues()),
-  //   });
-
-  //   if (response.ok) {
-  //     router.push('/login');
-  //     toast.custom((t) => (
-  //       <CustomToast t={t} message={'🌿 تم التسجيل بنجاح 🌿'} />
-  //     ));
-  //   } else {
-  //     setError('email', {
-  //       type: 'custom',
-  //       message:
-  //         'هذا الإيميل موجود بالفعل! قم بتسجيل الدخول أو استخدم عنوان بريد الكتروني أخر',
-  //     });
-  //   }
-  // }
-
   async function onSubmit() {
-    if (getValues()?.name === '') {
-      setError('name', {
-        type: 'custom',
-        message: 'اسم المستخدم مطلوب',
+    console.log('getValues', getValues);
+    try {
+      const response = await fetch('/api/register', {
+        // method: 'POST',
+        // headers: { 'Content-Type': 'application/json' },
+        // body: JSON.stringify({ ...getValues }), // القيمة التي ترسلها
       });
-      return;
-    } else if (getValues()?.email === '') {
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        // عند حدوث خطأ من الباك إند
+        console.error('Error:', data.message); // رسالة الخطأ المرسلة من الباك إند
+        setError('email', {
+          type: 'manual',
+          message: data.message || 'حدث خطأ غير معروف!',
+        });
+        return;
+      }
+
+      // إذا كانت الاستجابة ناجحة
+      toast.success('تم التحقق من البريد الإلكتروني بنجاح!');
+    } catch (error) {
+      // في حال حدوث أخطاء أخرى
+      console.error('Unexpected error:', error);
       setError('email', {
-        type: 'custom',
-        message: 'عنوان البريد الإلكتروني مطلوب',
-      });
-      return;
-    } else if (getValues()?.password?.length < 5) {
-      setError('password', {
-        type: 'custom',
-        message:
-          'طول كلمة السر يجب أن يكون 5 أحرف (أو 5 أرقام وأحرف) على الأقل',
-      });
-      return;
-    }
-
-    const response = await fetch('/api/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(getValues()),
-    });
-
-    if (response.ok) {
-      const values = getValues();
-      // تخزين بيانات تسجيل الدخول في LocalStorage
-      localStorage.setItem('username', values?.name);
-      localStorage.setItem('email', values?.email);
-      localStorage.setItem('password', values?.password);
-
-      router.push('/login');
-      toast.custom((t) => (
-        <CustomToast t={t} message={'🌿 تم التسجيل بنجاح 🌿'} />
-      ));
-    } else {
-      setError('email', {
-        type: 'custom',
-        message:
-          'هذا الإيميل موجود بالفعل! قم بتسجيل الدخول أو استخدم عنوان بريد الكتروني أخر',
+        type: 'manual',
+        message: 'حدث خطأ أثناء إرسال الطلب. يرجى المحاولة لاحقًا.',
       });
     }
   }
@@ -135,9 +78,18 @@ export default function RegisterPage() {
         onSubmit={handleSubmit(onSubmit)}
         className="w-full lg:w-1/2 bg-four p-8 rounded-lg border border-one"
       >
-        <h1 className="w-full my-2 text-xl sm:text-2xl md:text-3xl xl:text-4xl font-bold text-center select-none">
-          التسجيل 🧀
+        <h1 className="flex justify-center mb-16 w-full my-2 text-xl sm:text-2xl md:text-3xl xl:text-4xl font-bold text-center select-none">
+          التسجيل <TbDoorEnter className="text-3xl" />
         </h1>
+        <div className="relative flex justify-center h-44 w-full text-center">
+          <Image
+            loading="lazy"
+            src={'https://i.imgur.com/nfDVITC.png'}
+            layout="fill"
+            objectFit="contain"
+            alt="photo"
+          />
+        </div>
         <div className="flex flex-col items-start justify-center w-full">
           <h1 className="w-full my-4 select-none text-start text-sm sm:text-lg">
             اسم المستخدم
@@ -151,7 +103,7 @@ export default function RegisterPage() {
           />
         </div>
         {errors?.name && (
-          <h1 className="text-one text-md my-2 text-start">
+          <h1 className="text-white text-md my-2 text-start">
             {errors?.name?.message}
           </h1>
         )}
@@ -168,7 +120,7 @@ export default function RegisterPage() {
           />
         </div>
         {errors?.email && (
-          <h1 className="text-one text-md my-2 text-start">
+          <h1 className="text-white text-md my-2 text-start">
             {errors?.email?.message}
           </h1>
         )}
@@ -185,18 +137,23 @@ export default function RegisterPage() {
           />
         </div>
         {errors?.password && (
-          <h1 className="text-one text-md my-2 text-start">
+          <h1 className="text-white text-md my-2 text-start">
             {errors?.password?.message}
           </h1>
         )}
         <div
-          className="flex justify-between w-full bg-white rounded-md px-4 py-2 items-center my-8 hover:shadow-md cursor-pointer"
-          onClick={() => signIn('google')}
+          className="flex justify-between w-full bg-white rounded-md gap-4 px-4 py-2 items-center my-8 hover:shadow-md cursor-pointer"
+          onClick={() =>
+            signIn('google', {
+              redirect: false, // يمنع التنقل الكامل
+              callbackUrl: '/',
+            })
+          }
         >
           <div className="relative h-8 w-8">
             <Image
-              priority
-              src={'/google.png'}
+              loading="lazy"
+              src={'https://i.imgur.com/Z4ts3yl.png'}
               alt="google image"
               layout="fill"
               objectFit="contain"
@@ -206,10 +163,10 @@ export default function RegisterPage() {
             التسجيل عن طريق جوجل
           </h1>
         </div>
-        <div className="flex flex-col sm:flex-row justify-between gap-8 items-center mt-4 w-full">
+        <div className="flex flex-col sm:flex-row justify-between gap-4 items-center mt-4 w-full">
           <button
             type="submit"
-            className=" text-lg p-2  my-3 text-white text-nowrap bg-five hover:bg-one rounded-lg hover:scale-[101%] w-full "
+            className=" text-lg p-2 shadow-lg my-3 text-white text-nowrap bg-five hover:bg-one rounded-lg hover:scale-[101%] w-full "
           >
             تسجيل
           </button>
@@ -218,7 +175,7 @@ export default function RegisterPage() {
             <Link href={'/'}>
               <button
                 type="submit"
-                className=" text-lg p-2  my-3 text-white text-nowrap bg-five hover:bg-one rounded-lg hover:scale-[101%] w-full "
+                className=" text-lg p-2 shadow-lg my-3 text-white text-nowrap bg-five hover:bg-one rounded-lg hover:scale-[101%] w-full "
               >
                 إغلاق{' '}
               </button>{' '}
@@ -227,11 +184,10 @@ export default function RegisterPage() {
         </div>
         <Link href={'/login'}>
           {' '}
-          <h1 className="mt-4 text-start text-sm sm:text-lg">
-            هل لديك حساب بالفعل ؟ قم بتسجيل الدخول{' '}
-            <span className="text-one text-lg sm:text-xl hover:scale-105">
-              🧀 هنا
-            </span>
+          <h1 className="flex mt-4 text-start text-sm sm:text-lg underline">
+            لديك حساب؟ قم بتسجيل الدخول
+            <TbDoorEnter className="text-xl mx-1 animate-pulse" />
+            هنا
           </h1>
         </Link>
       </form>

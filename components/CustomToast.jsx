@@ -18,6 +18,15 @@ export default function CustomToast({
         <div className="flex-1 w-full">
           <div className="flex justify-center items-center gap-2">
             <div className="ml-3 flex-1">
+              <div className="relative flex justify-center h-16 w-full text-center">
+                <Image
+                  loading="lazy"
+                  src={'https://i.imgur.com/nfDVITC.png'}
+                  layout="fill"
+                  objectFit="contain"
+                  alt="photo"
+                />
+              </div>
               {/* <h1 className="text-sm">بهيجة اشرق لبن</h1> */}
             </div>
           </div>
@@ -27,7 +36,7 @@ export default function CustomToast({
       <div>
         <div>
           <h1 className="sm:mt-4 text-[12px] sm:text-sm s:text-nowrap text-center  ">
-            <span className="text-green-400 text-xl font-bold">
+            <span className="text-white text-xl font-bold bg-green-400 rounded-full px-2 py-1">
               {greenEmoji}
             </span>
             <span className="text-one text-xl mx-1 font-bold">{redEmoji}</span>

@@ -1,7 +1,7 @@
 'use client';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState, useContext } from 'react';
 import { inputsContext } from './Context';
 import Loading from './Loading';
@@ -14,7 +14,7 @@ import CurrentUser from './CurrentUser';
 import { useSession } from 'next-auth/react';
 import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
 
-export default function ZomurodaPlanet({ vertical = false }) {
+export default function ZomurodaPlanet() {
   const [pageNumber, setPageNumber] = useState(1);
   const [Zumoroda, setZumoroda] = useState([]);
   const { newSeries, deletedSeries, dispatch } = useContext(inputsContext);
@@ -23,6 +23,8 @@ export default function ZomurodaPlanet({ vertical = false }) {
   const user = CurrentUser();
   const session = useSession();
   const [showMessage, setShowMessage] = useState(true);
+  const [vertical, setVertical] = useState(false);
+  const path = usePathname();
   const [ZumorodaSliderRef, ZumorodaInstanceRef] = useKeenSlider({
     loop: false,
     mode: 'free',
@@ -48,6 +50,23 @@ export default function ZomurodaPlanet({ vertical = false }) {
       }
     },
   });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const handleResize = () => {
+        setVertical(window.innerWidth < 768 && path !== '/');
+      };
+
+      // تعيين الحالة عند التحميل الأول
+      handleResize();
+
+      // إضافة مستمع لحدث تغيير الحجم
+      window.addEventListener('resize', handleResize);
+
+      // تنظيف المستمع عند إلغاء المكون
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
 
   useEffect(() => {
     fetchZumoroda();
@@ -79,7 +98,7 @@ export default function ZomurodaPlanet({ vertical = false }) {
           (series) => !existingIds.has(series.id)
         );
 
-        if (newZumoroda.length > 0) {
+        if (newZumoroda?.length > 0) {
           setZumoroda((prevZumoroda) => [...prevZumoroda, ...newZumoroda]);
         }
       }
@@ -106,22 +125,19 @@ export default function ZomurodaPlanet({ vertical = false }) {
     }
   }
   return (
-    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one">
-      {vertical ? (
-        <div className="absolute flex flex-col items-start gap-2 z-40 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
-          <TfiMenuAlt
-            className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
-            onClick={() => setIsOpen(!isOpen)}
-          />
-          {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
-        </div>
-      ) : (
-        ''
-      )}
+    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2  bg-one sm:mt-24 ">
+      <div className="absolute flex flex-col items-start gap-2 z-30 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
+        {/* <TfiMenuAlt
+          className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
+          onClick={() => setIsOpen(!isOpen)}
+        />
+        {isOpen && <SideBarMenu setIsOpen={setIsOpen} />} */}
+      </div>
 
       <>
         <div className="relative h-32 w-52 sm:h-52 sm:w-80">
           <Image
+            loading="lazy"
             src={'https://i.imgur.com/wbjwdXO.png'}
             layout="fill"
             objectFit="cover"
@@ -135,13 +151,12 @@ export default function ZomurodaPlanet({ vertical = false }) {
             <hr className="w-full h-0.5 bg-gray-400 rounded-lg border-hidden " />
           </div>
           <h1 className="w-fit text-start p-2 text-white my-2 ">كوكب زمردة</h1>
-          {/* <BackButton /> */}
         </>
       ) : (
         <h1 className="w-full text-start p-2 text-white my-2">كوكب زمردة</h1>
       )}
       {showMessage && (
-        <div className="relative w-full flex items-center justify-between text-white h-12  text-2xl px-2 ">
+        <div className="relative w-full flex items-center justify-between animate-pulse text-white h-12  text-2xl px-2 ">
           <MdKeyboardDoubleArrowRight />
 
           <h6 className="text-sm w-full text-start">
@@ -154,13 +169,12 @@ export default function ZomurodaPlanet({ vertical = false }) {
         ref={ZumorodaSliderRef}
         className={
           (vertical ? 'h-[600px]' : 'h-fit') +
-          ' keen-slider  py-2 shadow-lg  overflow-scroll rounded-md'
+          ' keen-slider  py-2 shadow-lg  overflow-scroll rounded-md flex-row justify-start items-start'
         }
       >
         {Zumoroda.length === 0 ? (
           <Loading />
         ) : (
-          // إنقاص أول 4 مسلسلات من العرض
           Zumoroda?.map((series) => (
             <div
               key={series.id}
@@ -175,7 +189,7 @@ export default function ZomurodaPlanet({ vertical = false }) {
                 </button>
               )}
               <div
-                className=" flex flex-col items-center justify-start flex-shrink-0 w-full mr-1"
+                className="flex flex-col  items-center justify-start flex-shrink-0 w-full mr-1"
                 key={series?.id}
                 onClick={() => {
                   // التنقل إلى الرابط الجديد
@@ -191,6 +205,7 @@ export default function ZomurodaPlanet({ vertical = false }) {
                   }
                 >
                   <Image
+                    loading="lazy"
                     src={series?.seriesImage}
                     layout="fill"
                     objectFit="cover"

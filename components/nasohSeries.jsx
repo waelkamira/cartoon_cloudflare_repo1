@@ -2,15 +2,17 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Loading from './Loading';
 import Image from 'next/image';
 
-export default function NasohSeries({ vertical = false }) {
+export default function NasohSeries() {
   const [episodes, setEpisodes] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [hasMoreEpisodes, setHasMoreEpisodes] = useState(true);
   const router = useRouter();
+  const [vertical, setVertical] = useState(false);
+  const path = usePathname();
 
   // إعداد الـ Slider باستخدام KeenSlider
   const [nasohSliderRef, nasohInstanceRef] = useKeenSlider({
@@ -37,6 +39,23 @@ export default function NasohSeries({ vertical = false }) {
       }
     },
   });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const handleResize = () => {
+        setVertical(window.innerWidth < 768 && path !== '/');
+      };
+
+      // تعيين الحالة عند التحميل الأول
+      handleResize();
+
+      // إضافة مستمع لحدث تغيير الحجم
+      window.addEventListener('resize', handleResize);
+
+      // تنظيف المستمع عند إلغاء المكون
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
 
   // تحديث الـ Slider عند تغيير الحلقات
   useEffect(() => {
@@ -78,6 +97,7 @@ export default function NasohSeries({ vertical = false }) {
     <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one ">
       <div className="relative h-44 w-full sm:h-[600px] ">
         <Image
+          loading="lazy"
           src={'https://i.imgur.com/u6grI22.png'}
           layout="fill"
           objectFit="cover"
@@ -114,6 +134,7 @@ export default function NasohSeries({ vertical = false }) {
                   }
                 >
                   <Image
+                    loading="lazy"
                     src={episode?.episodeImage}
                     layout="fill"
                     objectFit="cover"

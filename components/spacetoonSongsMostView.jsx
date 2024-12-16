@@ -8,8 +8,7 @@ import Image from 'next/image';
 import Loading from './Loading';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import SideBarMenu from './SideBarMenu';
-import BackButton from './BackButton';
-import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
+
 export default function SpacetoonSongs({ vertical = false, title = true }) {
   const [pageNumber, setPageNumber] = useState(1);
   const [spacetoonSongs, setSpacetoonSongs] = useState([]);
@@ -81,17 +80,15 @@ export default function SpacetoonSongs({ vertical = false, title = true }) {
     }
   }
 
-  const handleSongClick = (songName) => {
+  const handleSongClick = (songId) => {
     // احفظ المسار السابق
     const currentPath = window.location.pathname + window.location.search;
     setPreviousPath(currentPath);
 
     // التنقل إلى صفحة الأغنية
-    router.push(`/spacetoonSong?spacetoonSongName=${songName}`);
+    router.push(`/spacetoonSong?spacetoonSongId=${songId}`);
     setTimeout(() => {
       const newPath = window.location.pathname + window.location.search;
-      // console.log('newPath', newPath);
-      // console.log('currentPath', currentPath);
 
       // تحديث الصفحة فقط إذا تغير المسار
       if (newPath !== previousPath && newPath.includes('/spacetoonSong')) {
@@ -105,12 +102,12 @@ export default function SpacetoonSongs({ vertical = false, title = true }) {
       {vertical ? (
         <>
           {' '}
-          <div className="absolute flex flex-col items-start gap-2 z-40 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
-            <TfiMenuAlt
+          <div className="absolute flex flex-col items-start gap-2 z-30 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
+            {/* <TfiMenuAlt
               className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
               onClick={() => setIsOpen(!isOpen)}
             />
-            {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
+            {isOpen && <SideBarMenu setIsOpen={setIsOpen} />} */}
           </div>
           {/* <BackButton /> */}
         </>
@@ -142,26 +139,12 @@ export default function SpacetoonSongs({ vertical = false, title = true }) {
             <div
               key={song?.id}
               className="keen-slider__slide snap-center flex flex-col items-center justify-start flex-shrink-0 px-2 w-full"
-              // onClick={() => {
-              //   dispatch({
-              //     type: 'SPACETOON_SONG_NAME',
-              //     payload: song?.spacetoonSongName,
-              //   });
-
-              //   // التنقل إلى الرابط الجديد
-              //   router.push(
-              //     `/spacetoonSong?spacetoonSongName=${song?.spacetoonSongName}`
-              //   );
-              //   setTimeout(() => {
-              //     window?.location?.reload();
-              //   }, 3000);
-              // }}
               onClick={() => {
                 dispatch({
                   type: 'SPACETOON_SONG_NAME',
-                  payload: song?.spacetoonSongName,
+                  payload: song?.id,
                 });
-                handleSongClick(song?.spacetoonSongName);
+                handleSongClick(song?.id);
               }}
             >
               <div
@@ -171,10 +154,11 @@ export default function SpacetoonSongs({ vertical = false, title = true }) {
                 }
               >
                 <Image
+                  loading="lazy"
                   src={song?.spacetoonSongImage}
                   layout="fill"
                   objectFit="cover"
-                  alt={song?.spacetoonSongName}
+                  alt={song?.spacetoonSongId}
                 />
               </div>
               <h1 className="text-white text-center m-2 text-[10px] sm:text-[15px] w-full line-clamp-2 font-bold">

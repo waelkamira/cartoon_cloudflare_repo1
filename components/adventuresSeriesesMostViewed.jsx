@@ -101,6 +101,7 @@ export default function AdventuresPlanetMostViewed() {
               >
                 <div className="relative w-24 h-32 sm:w-full sm:h-64 rounded-md overflow-hidden mx-2 hover:cursor-pointer">
                   <Image
+                    loading="lazy"
                     src={series.seriesImage}
                     layout="fill"
                     objectFit="cover"

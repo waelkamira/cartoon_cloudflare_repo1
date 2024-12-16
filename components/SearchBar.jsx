@@ -109,7 +109,7 @@ export default function SearchBar() {
         }
       >
         <div className="flex flex-col justify-center items-center sm:flex-row gap-4 w-full">
-          <div className="relative w-full sm:px-4">
+          <div className="relative w-full sm:px-4 xl:mr-36">
             <input
               value={searchedWord}
               onChange={(e) => setSearchedWord(e.target.value)}
@@ -118,11 +118,11 @@ export default function SearchBar() {
               id="search_meal"
               name="search_meal"
               placeholder="ابحث عن مسلسل أو فيلم  ..."
-              className="relative pr-14 py-1 sm:pr-16 border border-white w-full focus:outline-none rounded-full text-sm sm:text-xl text-black placeholder:text-[10px] sm:placeholder:text-lg sm:placeholder:px-16 text-right"
+              className="relative pr-14 sm:pr-24 py-1 border border-white w-full focus:outline-none rounded-full text-sm sm:text-xl text-black placeholder:text-[10px] sm:placeholder:text-lg sm:placeholder:px-8 text-right"
             />
             <div className="absolute flex items-center top-0 md:top-0 md:right-4 md:w-24 w-[80px] right-0 h-full rounded-r-full">
               <h1
-                className="absolute flex justify-center cursor-pointer select-none items-center top-0 right-0 bg-one h-full text-white rounded-r-full border border-white w-fit px-2"
+                className="absolute flex justify-center cursor-pointer select-none items-center top-0 right-0 bg-one h-full text-white rounded-r-full border border-white w-fit px-2 sm:text-2xl sm:px-4"
                 onClick={handleSearch}
               >
                 بحث
@@ -175,23 +175,23 @@ export default function SearchBar() {
                           await router.push(
                             `/episodes?episodeName=${result?.episodeName}`
                           );
-                          // setTimeout(() => {
-                          //   window?.location?.reload();
-                          // }, 3000);
+                          setTimeout(() => {
+                            window?.location?.reload();
+                          }, 3000);
                         } else if (result?.seriesName) {
                           router.push(
                             `/seriesAndEpisodes?seriesName=${result?.seriesName}`
                           );
-                          // setTimeout(() => {
-                          //   window?.location?.reload();
-                          // }, 3000);
+                          setTimeout(() => {
+                            window?.location?.reload();
+                          }, 3000);
                         } else if (result?.movieName) {
                           await router.push(
                             `/movie?movieName=${result?.movieName}`
                           );
-                          // setTimeout(() => {
-                          //   window?.location?.reload();
-                          // }, 3000);
+                          setTimeout(() => {
+                            window?.location?.reload();
+                          }, 3000);
                         } else if (result?.songName) {
                           dispatch({
                             type: 'SONG_NAME',
@@ -200,9 +200,9 @@ export default function SearchBar() {
                           await router.push(
                             `/song?songName=${result?.songName}`
                           );
-                          // setTimeout(() => {
-                          //   window?.location?.reload();
-                          // }, 3000);
+                          setTimeout(() => {
+                            window?.location?.reload();
+                          }, 3000);
                         } else if (result?.spacetoonSongName) {
                           dispatch({
                             type: 'SPACETOON_SONG_NAME',
@@ -211,9 +211,9 @@ export default function SearchBar() {
                           await router.push(
                             `/spacetoonSong?spacetoonSongName=${result?.spacetoonSongName}`
                           );
-                          // setTimeout(() => {
-                          //   window?.location?.reload();
-                          // }, 3000);
+                          setTimeout(() => {
+                            window?.location?.reload();
+                          }, 3000);
                         }
                       }}
                       className="my-2 cursor-pointer"
@@ -221,6 +221,7 @@ export default function SearchBar() {
                       <div className="relative w-52 h-32 sm:w-96 sm:h-96">
                         {imageSrc ? (
                           <Image
+                            loading="lazy"
                             src={imageSrc}
                             layout={'fill'}
                             objectFit={'cover'}

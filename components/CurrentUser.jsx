@@ -3,7 +3,8 @@ import { inputsContext } from './Context';
 import { useSession } from 'next-auth/react';
 
 export default function CurrentUser() {
-  const { profile_image } = useContext(inputsContext);
+  const { profile_image, rerender } = useContext(inputsContext);
+
   const [user, setUser] = useState();
   const { data: session, status } = useSession();
   // console.log('profile_image?.image', profile_image?.image);
@@ -12,7 +13,8 @@ export default function CurrentUser() {
     if (status === 'authenticated') {
       getUserData();
     }
-  }, [status, profile_image?.image]);
+    // console.log('rerender from CurrentUser');
+  }, [status, profile_image?.image, rerender]);
 
   async function getUserData() {
     if (session) {
@@ -23,10 +25,10 @@ export default function CurrentUser() {
       // console.log('json', json);
       if (response.ok) {
         if (typeof window !== 'undefined') {
-          localStorage.setItem('CurrentUser', JSON.stringify(json));
+          localStorage.setItem('CurrentUser', JSON.stringify(json[0]));
         }
 
-        setUser(json);
+        setUser(json[0]);
       }
     }
   }

@@ -1,0 +1,1 @@
+This folder contains the built output assets for the worker "cartoonz" generated at 2024-12-16T15:34:32.572Z.

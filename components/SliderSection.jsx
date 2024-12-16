@@ -14,7 +14,13 @@ const SliderSection = ({ data, title, imageSrc, onSlideClick }) => {
   return (
     <div className="flex flex-col items-center justify-center my-4">
       <div className="relative h-32 w-72">
-        <Image src={imageSrc} layout="fill" objectFit="cover" alt={title} />
+        <Image
+          loading="lazy"
+          src={imageSrc}
+          layout="fill"
+          objectFit="cover"
+          alt={title}
+        />
       </div>
       <h1 className="w-full text-start px-2 text-white">{title}</h1>
       <div ref={sliderRef} className="keen-slider bg-two p-2 shadow-lg">
@@ -29,6 +35,7 @@ const SliderSection = ({ data, title, imageSrc, onSlideClick }) => {
             >
               <div className="relative w-24 h-32 sm:w-36 sm:h-48 rounded-sm overflow-hidden mx-1 hover:cursor-pointer">
                 <Image
+                  loading="lazy"
                   src={series.seriesImage}
                   layout="fill"
                   objectFit="cover"

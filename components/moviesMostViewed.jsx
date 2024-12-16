@@ -95,6 +95,7 @@ export default function MoviesPlanetMostViewed() {
               >
                 <div className="relative w-24 h-32 sm:w-full sm:h-64 rounded-md overflow-hidden hover:cursor-pointer">
                   <Image
+                    loading="lazy"
                     src={movie.movieImage}
                     layout="fill"
                     objectFit="cover"

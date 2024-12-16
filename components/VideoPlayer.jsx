@@ -12,11 +12,8 @@ export default function VideoPlayer({
   const [videoSource, setVideoSource] = useState('');
   const [videoId, setVideoId] = useState('');
   const [aspectRatio, setAspectRatio] = useState(null);
-  const [isAdPlaying, setIsAdPlaying] = useState(false); // حالة تتبع للإعلان
-  const [adTimer, setAdTimer] = useState(null); // المؤقت لتشغيل الإعلان
   const videoRef = useRef(null);
 
-  // console.log('videoUrl', videoUrl);
   useEffect(() => {
     const handleKeydown = (event) => {
       if (event.code === 'Space') {
@@ -78,18 +75,6 @@ export default function VideoPlayer({
       setVideoSource('otherSources');
       setVideoId(adjustedUrl);
     }
-
-    // إعلان كل 30 دقيقة
-    if (!adTimer) {
-      const timer = setInterval(() => {
-        setIsAdPlaying(true);
-      }, 1800000);
-      setAdTimer(timer);
-    }
-
-    return () => {
-      if (adTimer) clearInterval(adTimer);
-    };
   }, [videoUrl]);
 
   useEffect(() => {
@@ -114,12 +99,6 @@ export default function VideoPlayer({
   useEffect(() => {
     blockAdsAndPopups();
   }, []);
-
-  const handleAdEnd = () => {
-    // بعد انتهاء الإعلان، نعيد تشغيل الفيلم الرئيسي
-    setIsAdPlaying(false);
-    videoRef.current.play(); // استئناف تشغيل الفيلم الرئيسي
-  };
 
   const handleVideoEnd = () => {
     if (onNextEpisode) {
@@ -187,108 +166,96 @@ export default function VideoPlayer({
     >
       {videoId ? (
         <div className="w-full">
-          {isAdPlaying ? (
-            <div className="w-full h-full flex justify-center items-center">
+          <>
+            {videoSource === 'youtube' && (
+              <div className="w-full h-full flex justify-center items-center">
+                <iframe
+                  ref={videoRef}
+                  className="w-full h-full min-h-72 sm:h-96 md:h-[500px] lg:h-[700px]"
+                  src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`}
+                  allowFullScreen={true}
+                  sandbox="allow-same-origin allow-scripts allow-forms"
+                  title="YouTube Video Player"
+                  onLoadedMetadata={updateAspectRatio}
+                  onEnded={handleVideoEnd} // تحديث الصفحة عند انتهاء الفيديو
+                  onDoubleClick={handleFullScreen}
+                  loop
+                />
+              </div>
+            )}
+            {videoSource === 'arteenz' && (
               <video
-                className="w-full min-w-72 min-h-44 sm:w-96 sm:h-72 md:w-[800px] md:h-[600px]"
-                src="//teestoagloupaza.net/401/8453969" // رابط الإعلان
-                autoPlay
+                ref={videoRef}
+                className="w-full h-full"
+                style={{ width: '100%', height: '100%' }}
                 controls
-                onEnded={handleAdEnd} // استئناف الفيلم بعد انتهاء الإعلان
-              />
-            </div>
-          ) : (
-            <>
-              {videoSource === 'youtube' && (
-                <div className="w-full h-full flex justify-center items-center">
-                  <iframe
-                    ref={videoRef}
-                    className="w-full h-full min-h-72 sm:h-96 md:h-[500px] lg:h-[700px]"
-                    src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`}
-                    allowFullScreen={true}
-                    sandbox="allow-same-origin allow-scripts allow-forms"
-                    title="YouTube Video Player"
-                    onLoadedMetadata={updateAspectRatio}
-                    onEnded={handleVideoEnd} // تحديث الصفحة عند انتهاء الفيديو
-                    onDoubleClick={handleFullScreen}
-                    loop
-                  />
-                </div>
-              )}
-              {videoSource === 'arteenz' && (
-                <video
+                poster={image}
+                controlsList="nodownload"
+                onLoadedMetadata={updateAspectRatio}
+                onContextMenu={(e) => e.preventDefault()}
+                referrerPolicy="no-referrer"
+                autoPlay
+                onEnded={handleVideoEnd}
+                onDoubleClick={handleFullScreen}
+              >
+                <source src={`${videoId}?autoplay=0`} type="video/mp4" />
+              </video>
+            )}
+            {videoSource === 'zidwish' && (
+              <div className="w-full h-full flex justify-center items-center">
+                <iframe
                   ref={videoRef}
-                  className="w-full h-full"
-                  style={{ width: '100%', height: '100%' }}
-                  controls
-                  poster={image}
-                  controlsList="nodownload"
-                  onLoadedMetadata={updateAspectRatio}
-                  onContextMenu={(e) => e.preventDefault()}
-                  referrerPolicy="no-referrer"
-                  autoPlay
+                  className="w-full min-w-72 min-h-44 sm:w-96 sm:h-72 md:w-[800px] md:h-[600px]"
+                  src={`${videoId}?autoplay=1`}
+                  allowFullScreen={true}
+                  frameBorder="0"
+                  allow="autoplay; fullscreen"
+                  // sandbox="allow-same-origin allow-scripts allow-forms allow-top-navigation"
+                  title="Video Player"
+                  onFocus={() => (document.body.style.overflow = 'hidden')}
+                  onBlur={() => (document.body.style.overflow = 'auto')}
                   onEnded={handleVideoEnd}
                   onDoubleClick={handleFullScreen}
-                >
-                  <source src={`${videoId}?autoplay=0`} type="video/mp4" />
-                </video>
-              )}
-              {videoSource === 'zidwish' && (
-                <div className="w-full h-full flex justify-center items-center">
-                  <iframe
-                    ref={videoRef}
-                    className="w-full min-w-72 min-h-44 sm:w-96 sm:h-72 md:w-[800px] md:h-[600px]"
-                    src={`${videoId}?autoplay=1`}
-                    allowFullScreen={true}
-                    frameBorder="0"
-                    allow="autoplay; fullscreen"
-                    sandbox="allow-same-origin allow-scripts allow-forms allow-top-navigation"
-                    title="Video Player"
-                    onFocus={() => (document.body.style.overflow = 'hidden')}
-                    onBlur={() => (document.body.style.overflow = 'auto')}
-                    onEnded={handleVideoEnd}
-                    onDoubleClick={handleFullScreen}
-                  ></iframe>
-                </div>
-              )}
-              {videoSource === 'otherSources' && (
-                <video
-                  ref={videoRef}
-                  className="w-full h-[100%]"
-                  style={{ width: '100%', height: '100%' }}
-                  controls
-                  poster={image}
-                  controlsList="nodownload"
-                  onLoadedMetadata={updateAspectRatio}
-                  onContextMenu={(e) => e.preventDefault()}
-                  referrerPolicy="no-referrer"
-                  autoPlay
-                  onEnded={handleVideoEnd}
-                  onDoubleClick={handleFullScreen}
-                >
-                  <source src={`${videoId}?autoplay=1`} type="video/mp4" />
-                </video>
-              )}
-              {videoSource === 'dropbox' && (
-                <video
-                  ref={videoRef}
-                  className="w-full h-[100%]"
-                  style={{ width: '100%', height: '100%' }}
-                  controls
-                  poster={image}
-                  controlsList="nodownload"
-                  onLoadedMetadata={updateAspectRatio}
-                  onContextMenu={(e) => e.preventDefault()}
-                  referrerPolicy="no-referrer"
-                  autoPlay
-                  onEnded={handleVideoEnd}
-                  onDoubleClick={handleFullScreen}
-                >
-                  <source src={`${videoId}`} type="video/mp4" />
-                </video>
-              )}
-            </>
-          )}
+                ></iframe>
+              </div>
+            )}
+            {videoSource === 'otherSources' && (
+              <video
+                ref={videoRef}
+                className="w-full h-[100%]"
+                style={{ width: '100%', height: '100%' }}
+                controls
+                poster={image}
+                controlsList="nodownload"
+                onLoadedMetadata={updateAspectRatio}
+                onContextMenu={(e) => e.preventDefault()}
+                referrerPolicy="no-referrer"
+                autoPlay
+                onEnded={handleVideoEnd}
+                onDoubleClick={handleFullScreen}
+              >
+                <source src={`${videoId}?autoplay=1`} type="video/mp4" />
+              </video>
+            )}
+            {videoSource === 'dropbox' && (
+              <video
+                ref={videoRef}
+                className="w-full h-[100%]"
+                style={{ width: '100%', height: '100%' }}
+                controls
+                poster={image}
+                controlsList="nodownload"
+                onLoadedMetadata={updateAspectRatio}
+                onContextMenu={(e) => e.preventDefault()}
+                referrerPolicy="no-referrer"
+                autoPlay
+                onEnded={handleVideoEnd}
+                onDoubleClick={handleFullScreen}
+              >
+                <source src={`${videoId}`} type="video/mp4" />
+              </video>
+            )}
+          </>
         </div>
       ) : (
         <LoadingPhoto />

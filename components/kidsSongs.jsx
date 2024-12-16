@@ -1,7 +1,7 @@
 'use client';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState, useContext } from 'react';
 import { inputsContext } from './Context';
 import Image from 'next/image';
@@ -11,11 +11,7 @@ import SideBarMenu from './SideBarMenu';
 import BackButton from './BackButton';
 import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
 
-export default function KidsSongs({
-  vertical = false,
-  image = true,
-  title = true,
-}) {
+export default function KidsSongs({ image = true, title = true }) {
   const [pageNumber, setPageNumber] = useState(1);
   const [songs, setSongs] = useState([]);
   const { newSong, deletedSong, dispatch } = useContext(inputsContext);
@@ -23,6 +19,8 @@ export default function KidsSongs({
   const [isOpen, setIsOpen] = useState(false);
   const [showMessage, setShowMessage] = useState(true);
   const [previousPath, setPreviousPath] = useState('');
+  const [vertical, setVertical] = useState(false);
+  const path = usePathname();
 
   const [songsSliderRef, songsInstanceRef] = useKeenSlider({
     loop: false,
@@ -49,6 +47,23 @@ export default function KidsSongs({
       }
     },
   });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const handleResize = () => {
+        setVertical(window.innerWidth < 768 && path !== '/');
+      };
+
+      // تعيين الحالة عند التحميل الأول
+      handleResize();
+
+      // إضافة مستمع لحدث تغيير الحجم
+      window.addEventListener('resize', handleResize);
+
+      // تنظيف المستمع عند إلغاء المكون
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
 
   useEffect(() => {
     fetchSongs();
@@ -87,13 +102,13 @@ export default function KidsSongs({
     }
   }
 
-  const handleSongClick = (songName) => {
+  const handleSongClick = (songId) => {
     // احفظ المسار السابق
     const currentPath = window.location.pathname + window.location.search;
     setPreviousPath(currentPath);
 
     // التنقل إلى صفحة الأغنية
-    router.push(`/song?songName=${songName}`);
+    router.push(`/song?songId=${songId}`);
 
     setTimeout(() => {
       const newPath = window.location.pathname + window.location.search;
@@ -104,29 +119,22 @@ export default function KidsSongs({
     }, 3000);
   };
   return (
-    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one">
-      {vertical ? (
-        <>
-          {' '}
-          <div className="absolute flex flex-col items-start gap-2 z-40 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
-            <TfiMenuAlt
-              className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50 bg-two"
-              onClick={() => setIsOpen(!isOpen)}
-            />
-            {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
-          </div>
-          {/* <BackButton /> */}
-        </>
-      ) : (
-        ''
-      )}
+    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one sm:mt-24">
+      <div className="absolute flex flex-col items-start gap-2 z-30 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
+        {/* <TfiMenuAlt
+          className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50 bg-two"
+          onClick={() => setIsOpen(!isOpen)}
+        />
+        {isOpen && <SideBarMenu setIsOpen={setIsOpen} />} */}
+      </div>
 
       {image ? (
         <div className="relative h-44 w-48 sm:h-[300px] sm:w-80">
           <Image
+            loading="lazy"
             src={'https://i.imgur.com/rRBpVhp.png'}
             layout="fill"
-            objectFit="cover"
+            objectFit="conatin"
             alt={'أغاني أطفال'}
           />{' '}
         </div>
@@ -143,7 +151,7 @@ export default function KidsSongs({
         ''
       )}
       {showMessage && (
-        <div className="relative w-full flex items-center justify-between text-white h-12  text-2xl px-2 ">
+        <div className="relative w-full flex items-center justify-between animate-pulse text-white h-12  text-2xl px-2 ">
           <MdKeyboardDoubleArrowRight />
 
           <h6 className="text-sm w-full text-start">اسحب لمزيد من الأغاني</h6>
@@ -166,7 +174,7 @@ export default function KidsSongs({
               className="keen-slider__slide snap-center flex flex-col items-center justify-start flex-shrink-0 px-2 w-full"
               onClick={() => {
                 dispatch({ type: 'KIDS_SONG_NAME', payload: song?.songName });
-                handleSongClick(song?.songName);
+                handleSongClick(song?.id);
               }}
             >
               <div
@@ -176,6 +184,7 @@ export default function KidsSongs({
                 }
               >
                 <Image
+                  loading="lazy"
                   src={song?.songImage}
                   layout="fill"
                   objectFit="cover"

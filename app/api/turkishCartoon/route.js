@@ -9,7 +9,7 @@ const csvUrls = {
     'https://raw.githubusercontent.com/waelkamira/csv/refs/heads/main/turkishCartoon.csv',
 };
 
-// مدة الـ cache بالمللي ثانية (مثلاً 15 دقيقة)
+// مدة الكاش بالمللي ثانية (15 دقيقة)
 const CACHE_DURATION = 15 * 60 * 1000;
 
 // التخزين المؤقت للبيانات
@@ -19,7 +19,7 @@ const cache = {
   params: {}, // لتخزين معايير الفلترة
 };
 
-// وظيفة للتحقق إذا كان الـ cache صالحًا بناءً على المعايير
+// وظيفة للتحقق إذا كان الكاش صالحًا بناءً على المعايير
 function isCacheValid(seriesName, planetName, mostViewed) {
   return (
     cache.data &&
@@ -30,7 +30,7 @@ function isCacheValid(seriesName, planetName, mostViewed) {
   );
 }
 
-// وظيفة مساعدة لجلب وتحليل محتوى CSV من رابط
+// وظيفة مساعدة لجلب وتحليل محتوى CSV من الرابط
 async function fetchCsvData(url) {
   const response = await fetch(url);
   if (!response.ok) throw new Error('Failed to fetch CSV data');
@@ -38,44 +38,35 @@ async function fetchCsvData(url) {
   return Papa.parse(csvText, { header: true, skipEmptyLines: true }).data;
 }
 
-// وظيفة مساعدة لكتابة البيانات إلى ملف CSV (محاكاة للكتابة باستخدام GitHub API)
-async function writeCsvData(data) {
-  const csvContent = Papa.unparse(data);
-  // هنا يجب استخدام GitHub API أو آلية مشابهة لرفع التعديلات إلى GitHub
-  // لا يمكن استخدام `fs` مباشرة لأننا نعمل في بيئة سيرفر مثل Vercel أو Netlify.
-  console.log('CSV content to be updated:', csvContent);
-  return csvContent;
-}
-
+// وظيفة GET لمعالجة الطلبات
 export async function GET(req) {
   const url = new URL(req.url);
   const searchParams = url.searchParams;
   const page = parseInt(searchParams.get('page')) || 1;
-  const limit = parseInt(searchParams.get('limit')) || 4; // تحديد limit بـ 4
+  const limit = parseInt(searchParams.get('limit')) || 4; // تعيين limit بـ 4
   const skip = (page - 1) * limit;
   const seriesName = searchParams.get('seriesName') || '';
   const planetName = searchParams.get('planetName') || '';
-  const mostViewed = searchParams.get('mostViewed') === 'true'; // تحويل القيمة إلى Boolean
+  const mostViewed = searchParams.get('mostViewed') === 'true'; // تحويل إلى Boolean
 
   try {
     let serieses;
 
-    // تحقق مما إذا كانت بيانات الـ cache صالحة بناءً على معايير البحث
+    // تحقق مما إذا كانت بيانات الكاش صالحة
     if (isCacheValid(seriesName, planetName, mostViewed)) {
-      console.log('Serving from cache...');
+      // console.log('Serving from cache...');
       serieses = cache.data;
     } else {
-      console.log('Fetching new data from CSV...');
-      // قراءة وتحليل البيانات من CSV على GitHub
+      // جلب البيانات من CSV على GitHub
       serieses = await fetchCsvData(csvUrls.serieses);
 
-      // تحديث الـ cache مع المعايير الجديدة
+      // تحديث الكاش
       cache.data = serieses;
       cache.lastUpdated = Date.now();
       cache.params = { seriesName, planetName, mostViewed };
     }
 
-    // فلترة البيانات حسب اسم المسلسل أو الكوكب
+    // فلترة البيانات بناءً على اسم المسلسل أو الكوكب
     if (seriesName) {
       serieses = serieses.filter((series) => series.seriesName === seriesName);
     }
@@ -84,26 +75,25 @@ export async function GET(req) {
       serieses = serieses.filter((series) => series.planetName === planetName);
     }
 
-    if (planetName && mostViewed) {
+    // فلترة المشاهدات إذا كانت معايير البحث تشملها
+    if (mostViewed) {
       serieses = serieses.filter((series) => series.mostViewed === 'true');
     }
 
-    // ترتيب البيانات
+    // ترتيب البيانات بناءً على المعايير
     if (mostViewed) {
-      // ترتيب بناءً على updated_at إذا كان mostViewed === true
-      serieses.sort((a, b) => {
-        const dateA = new Date(a['updated_at']);
-        const dateB = new Date(b['updated_at']);
-        return dateA - dateB;
-      });
+      // ترتيب بناءً على updated_at
+      serieses.sort(
+        (a, b) => new Date(a['updated_at']) - new Date(b['updated_at'])
+      );
     } else {
-      // ترتيب عشوائي إذا كان mostViewed === false
+      // ترتيب عشوائي
       serieses.sort(() => Math.random() - 0.5);
     }
 
-    // تقسيم البيانات للصفحة الحالية
+    // تقسيم البيانات حسب الصفحة الحالية
     const paginatedData = serieses.slice(skip, skip + limit);
-    // console.log('episodes', paginatedData);
+
     return new Response(JSON.stringify(paginatedData), {
       headers: { 'Content-Type': 'application/json' },
     });

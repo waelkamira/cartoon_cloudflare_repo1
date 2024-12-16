@@ -2,7 +2,6 @@ import Papa from 'papaparse';
 import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid'; // استخدام مكتبة UUID لتوليد معرفات فريدة
 export const runtime = 'edge';
-
 // روابط ملفات CSV من GitHub
 const csvUrls = {
   serieses:
@@ -62,10 +61,10 @@ export async function GET(req) {
 
     // تحقق مما إذا كانت بيانات الـ cache صالحة بناءً على معايير البحث
     if (isCacheValid(seriesName, planetName, mostViewed)) {
-      console.log('Serving from cache...');
+      // console.log('Serving from cache...');
       serieses = cache.data;
     } else {
-      console.log('Fetching new data from CSV...');
+      // console.log('Fetching new data from CSV...');
       // قراءة وتحليل البيانات من CSV على GitHub
       serieses = await fetchCsvData(csvUrls.serieses);
 

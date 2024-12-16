@@ -18,15 +18,14 @@ import BonbonaPlanetMostViewed from './bonbonaSeriesesMostViewed';
 import SpacetoonSongs from './spacetoonSongs';
 import SpacetoonSongsMostView from './spacetoonSongsMostView';
 import NasohSeries from './nasohSeries';
+
 export default function Serieses() {
   return (
     <div className="w-full">
       <NewSerieses />
-      <NasohSeries />
       <ZomurodaPlanet />
       <ZomurodaPlanetMostViewed />
-      <SpacetoonSongs />
-      <SpacetoonSongsMostView />
+      <NasohSeries />
       <AdventuresPlanet />
       <AdventuresPlanetMostViewed />
       <SportPlanet />
@@ -35,10 +34,12 @@ export default function Serieses() {
       <ActionPlanetMostViewed />
       <Movies />
       <MoviesPlanetMostViewed />
-      <KidsSongs />
-      <KidsSongsMostView />
       <BonbonaPlanet />
       <BonbonaPlanetMostViewed />
+      <SpacetoonSongs />
+      <SpacetoonSongsMostView />
+      <KidsSongs />
+      <KidsSongsMostView />
     </div>
   );
 }

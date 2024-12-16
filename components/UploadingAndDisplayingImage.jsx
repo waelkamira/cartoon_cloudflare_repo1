@@ -73,7 +73,7 @@ export default function UploadingAndDisplayingImage({ img }) {
         {img && !uploadedImage && (
           <div className="w-full h-72 sm:h-96 border rounded-lg">
             <Image
-              priority
+              loading="lazy"
               src={img}
               alt="Uploaded"
               layout="fill"
@@ -84,7 +84,7 @@ export default function UploadingAndDisplayingImage({ img }) {
         {uploadedImage && (
           <div className="relative w-full h-72 sm:h-96">
             <Image
-              priority
+              loading="lazy"
               src={uploadedImage}
               alt="Uploaded"
               layout="fill"

@@ -85,6 +85,7 @@ const SharePrompt = () => {
               style={{ width: '96px', height: '96px', margin: '0 auto' }}
             >
               <Image
+                loading="lazy"
                 src="/windows11/Square44x44Logo.altform-unplated_targetsize-96.png"
                 alt="App Icon"
                 layout="fill"

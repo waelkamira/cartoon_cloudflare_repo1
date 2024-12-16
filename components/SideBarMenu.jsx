@@ -3,16 +3,17 @@ import { signOut, useSession } from 'next-auth/react';
 import React from 'react';
 import CurrentUser from '../components/CurrentUser';
 import Image from 'next/image';
-import Link from 'next/link';
 import Button from './Button';
 import LoadingPhoto from './LoadingPhoto';
 import ItemForSideBarMenu from './itemForSideBarMenu';
+import { FaRegCreditCard } from 'react-icons/fa';
+
 export default function SideBarMenu({ setIsOpen }) {
   const session = useSession();
-
+  const user = CurrentUser();
   return (
     <div
-      className="absolute w-screen h-screen z-50 right-0 -top-5"
+      className="absolute w-full sm:w-fit h-screen z-50 right-0 top-0 border-l-[3px] border-white"
       onClick={() => setIsOpen(false)}
     >
       <div
@@ -21,9 +22,9 @@ export default function SideBarMenu({ setIsOpen }) {
       >
         <div className="sticky top-0 w-full z-50">
           <div className="flex justify-center items-center w-full cursor-pointer bg-one">
-            <div className="relative size-28 my-2 mt-8">
+            <div className="relative size-36 my-2 mt-6 left-2">
               <Image
-                priority
+                loading="lazy"
                 src={'https://i.imgur.com/nfDVITC.png'}
                 fill
                 alt={'photo'}
@@ -34,31 +35,8 @@ export default function SideBarMenu({ setIsOpen }) {
             <Button title={'إغلاق'} onClick={() => setIsOpen(false)} />
           </div>
         </div>
-        {/* <div className="flex items-center w-full my-2">
-        <hr className="w-full h-0.5 bg-one rounded-lg border-hidden " />
-      </div> */}
 
-        <div className="relative p-4 ">
-          {/* {session?.status === 'authenticated' && user?.isAdmin === '1'&& (
-        <>
-          {' '}
-          <Button path={'/users'} title={'المستخدمين'} />
-          <Button title={'تسجيل الخروج'} path={'/'} onClick={() => signOut()} />
-        </>
-      )} */}
-
-          {/* <Button title={'بروفايل'} path={'/profile'} /> */}
-
-          <ItemForSideBarMenu
-            planetName={'أغاني سبيس تون'}
-            planetImage={'https://i.imgur.com/BWPdDAF.png'}
-            planetRoute={'/spacetoonSongsPlanet'}
-          />
-          <ItemForSideBarMenu
-            planetName={'أغاني أطفال'}
-            planetImage={'https://i.imgur.com/rRBpVhp.png'}
-            planetRoute={'/songsPlanet'}
-          />
+        <div className="relative p-4 " onClick={() => setIsOpen(false)}>
           <ItemForSideBarMenu
             planetName={'كوكب زمردة'}
             planetImage={'https://i.imgur.com/wbjwdXO.png'}
@@ -90,6 +68,16 @@ export default function SideBarMenu({ setIsOpen }) {
             planetRoute={'/bonbonaPlanet'}
           />
           <ItemForSideBarMenu
+            planetName={'أغاني سبيس تون'}
+            planetImage={'https://i.imgur.com/BWPdDAF.png'}
+            planetRoute={'/spacetoonSongsPlanet'}
+          />
+          <ItemForSideBarMenu
+            planetName={'أغاني أطفال'}
+            planetImage={'https://i.imgur.com/rRBpVhp.png'}
+            planetRoute={'/songsPlanet'}
+          />
+          <ItemForSideBarMenu
             planetName={'كرتون لغة انجليزية'}
             planetImage={'https://i.imgur.com/bw6ZZCJ.png'}
             planetRoute={'/englishCartoonPlanet'}
@@ -109,11 +97,12 @@ export default function SideBarMenu({ setIsOpen }) {
             planetImage={'https://i.imgur.com/GTuV1My.png'}
             planetRoute={'/turkishSongsPlanet'}
           />
-          {/* {session?.status === 'unauthenticated' && (
-        <div>
-          <Button title={'تسجيل الدخول'} path={'/login'} />
-        </div>
-      )} */}
+
+          {session?.status === 'unauthenticated' ? (
+            <Button title={'تسجيل الدخول'} path={'/login'} />
+          ) : (
+            <Button title={'بروفايل'} path={'/profile'} />
+          )}
         </div>
       </div>
     </div>

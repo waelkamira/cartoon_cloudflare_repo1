@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-one xl:px-32 rubik sm:px-2;
+  @apply bg-one rubik;
 }
 body {
   font-family: 'Rubik', sans-serif;
@@ -11,6 +11,16 @@ body {
 
 html {
   scroll-behavior: smooth;
+}
+
+.truncate {
+  display: inline-block;
+  direction: ltr; /* عكس اتجاه النص ليبدأ من اليمين */
+
+  white-space: nowrap; /* منع النص من الالتفاف */
+  overflow: hidden; /* إخفاء النص الزائد */
+  width: 15ch; /* عرض النص بما يعادل 5 حروف فقط */
+  text-overflow: ellipsis; /* إضافة ثلاث نقاط (...) للإشارة إلى وجود نص زائد */
 }
 
 .rubik {
@@ -21,13 +31,13 @@ html {
   width: 5px;
 }
 ::-webkit-scrollbar-track {
-  /* background-color: #c99944; */
+  background-color: #ffffff;
 }
 
-/* ::-webkit-scrollbar-thumb {
-  background: #c9c9c9;
+::-webkit-scrollbar-thumb {
+  background: #f70000;
   border-radius: 20px;
-} */
+}
 
 ::-webkit-scrollbar-track {
   border-radius: 20px;
@@ -54,6 +64,7 @@ html {
   width: 0%;
   height: 100%;
   background: #30353b;
+
   /* color: rgb(255, 255, 255); */
   height: 100%;
   z-index: -1;
@@ -72,7 +83,8 @@ html {
   position: relative;
   width: 100%;
   height: 0;
-  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  padding-bottom: 56.25%;
+  /* 16:9 aspect ratio */
   overflow: hidden;
 }
 
@@ -83,7 +95,8 @@ html {
   width: 100vw;
   height: 100vh;
   z-index: 1000;
-  background-color: #000; /* Optional: background color for full-screen overlay */
+  background-color: #000;
+  /* Optional: background color for full-screen overlay */
 }
 
 .close-button {
@@ -95,6 +108,7 @@ html {
   color: #fff;
   font-size: 24px;
 }
+
 /*? خاصة بالتعامل مع رفع الملف الذي هو عبارة عن صورة قمنا باخفاء الاليمنت الاساسي وعمل اليمنت مخصص  */
 input[type='file'] {
   display: none;
@@ -103,10 +117,13 @@ input[type='file'] {
   white-space: nowrap;
   font-weight: bold;
   display: inline-block;
+
   /* background-color: aqua; */
+
   /* padding: 100px; */
   cursor: pointer;
-  color: white; /* White text */
+  color: white;
+  /* White text */
   font-size: 14px;
   text-align: center;
   overflow: hidden;
@@ -118,12 +135,15 @@ input[type='file'] {
 
 /* إخفاء شريط التمرير في المتصفحات الحديثة */
 .scrollbar-hide {
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* Internet Explorer 10+ */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
+  display: none;
+  /* Safari and Chrome */
 }
 
 iframe {
@@ -132,10 +152,14 @@ iframe {
 }
 
 .video-poster {
-  width: 100%; /* عرض الفيديو */
-  height: 176px; /* ارتفاع الفيديو (44 * 4 = 176px) */
-  background-size: cover; /* لضبط حجم الصورة لتغطي الفيديو بالكامل */
-  background-position: center; /* لتمركز الصورة في الوسط */
+  width: 100%;
+  /* عرض الفيديو */
+  height: 176px;
+  /* ارتفاع الفيديو (44 * 4 = 176px) */
+  background-size: cover;
+  /* لضبط حجم الصورة لتغطي الفيديو بالكامل */
+  background-position: center;
+  /* لتمركز الصورة في الوسط */
 }
 
 .ad-container {
@@ -158,13 +182,26 @@ iframe {
   }
 }
 
-#ad-container {
-  position: relative; /* أو absolute إذا كنت تريد تحديده بشكل دقيق */
-  margin: 20px auto; /* لضمان أن يظهر في وسط الصفحة */
-  text-align: center; /* لضبط محتوى الإعلان في المنتصف */
-  width: 300px; /* تحديد العرض (مثلاً 300 بكسل) */
-  height: 250px; /* تحديد الطول (مثلاً 250 بكسل) */
-  background-color: #f9f9f9; /* لون خلفية لمساعدتك على رؤية مكان الإعلان */
-  padding: 10px; /* لإضافة مساحة حول الإعلان */
-  overflow: hidden; /* إخفاء أي محتوى يتجاوز الأبعاد المحددة */
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

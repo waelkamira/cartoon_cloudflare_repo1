@@ -1,13 +1,17 @@
 'use client';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import VideoPlayer from '../../components/VideoPlayer';
 import Loading from '../../components/Loading';
-import BackButton from '../../components/BackButton';
 import SideBarMenu from '../../components/SideBarMenu';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { inputsContext } from '../../components/Context';
+import { useSession } from 'next-auth/react';
+import SubscriptionPage from '../../components/paypal/subscriptionPage';
+import CurrentUser from '../../components/CurrentUser';
+import { ContactUs } from '../../components/sendEmail/sendEmail';
 
 export default function Page() {
   const [episodes, setEpisodes] = useState([]);
@@ -19,7 +23,9 @@ export default function Page() {
   const [isTrue, setIsTrue] = useState(true);
   const [hasMoreEpisodes, setHasMoreEpisodes] = useState(true);
   const router = useRouter();
-
+  const { dispatch } = useContext(inputsContext);
+  const session = useSession();
+  const user = CurrentUser();
   // استخدام URL parameters لجلب اسم الحلقة
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -130,118 +136,123 @@ export default function Page() {
 
   // التبديل للحلقة التالية
   const handleNextEpisode = (seriesName) => {
+    dispatch({ type: 'RERENDER' });
+
     const nextEpisodeNumber = episodeNumber + 1;
     const nextEpisodeName = `${seriesName} الحلقة ${nextEpisodeNumber}`;
-    router.push(`/episodes?episodeName=${nextEpisodeName}`);
+
+    // تحديث الحالة فقط بدلاً من إعادة تحميل الصفحة
     setEpisodeNumber(nextEpisodeNumber);
-    localStorage.setItem('episodeNumber', nextEpisodeNumber); // حفظ رقم الحلقة الجديد في localStorage
-    setTimeout(() => {
-      window?.location?.reload();
-    }, 3000);
+    setEpisodeName(nextEpisodeName);
+    localStorage.setItem('episodeNumber', nextEpisodeNumber); // حفظ رقم الحلقة في localStorage
+    fetchEpisode(nextEpisodeName); // جلب بيانات الحلقة التالية
   };
 
   // التبديل للحلقة السابقة
   const handlePreviousEpisode = (seriesName) => {
+    dispatch({ type: 'RERENDER' });
+
     if (episodeNumber > 1) {
       const prevEpisodeNumber = episodeNumber - 1;
-      const nextEpisodeName = `${seriesName} الحلقة ${prevEpisodeNumber}`;
-      router.push(`/episodes?episodeName=${nextEpisodeName}`);
+      const prevEpisodeName = `${seriesName} الحلقة ${prevEpisodeNumber}`;
+
+      // تحديث الحالة فقط بدلاً من إعادة تحميل الصفحة
       setEpisodeNumber(prevEpisodeNumber);
-      localStorage.setItem('episodeNumber', prevEpisodeNumber); // حفظ رقم الحلقة الجديد في localStorage
-      setTimeout(() => {
-        window?.location?.reload();
-      }, 3000);
+      setEpisodeName(prevEpisodeName);
+      localStorage.setItem('episodeNumber', prevEpisodeNumber); // حفظ رقم الحلقة في localStorage
+      fetchEpisode(prevEpisodeName); // جلب بيانات الحلقة السابقة
     }
   };
 
   return (
-    <div
-      className="relative w-full sm:p-4 lg:p-8 bg-one h-[1000px]
-overflow-y-auto"
-    >
-      <div className="absolute flex flex-col items-start gap-2 z-40 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
-        <TfiMenuAlt
-          className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50 bg-two"
-          onClick={() => setIsOpen(!isOpen)}
-        />
-        {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
-      </div>
-      <div className="hidden lg:block"></div>
-      <div className="relative w-full">
-        <div className="relative w-full h-44 sm:h-[500px] overflow-hidden shadow-lg">
-          {episodes.length > 0 && episodeImage ? (
-            <Image
-              priority
-              src={episodeImage}
-              layout="fill"
-              objectFit="cover"
-              alt="photo"
-              objectPosition="top"
-            />
-          ) : (
-            <LoadingPhoto />
+    <>
+      {session?.status === 'authenticated' &&
+        user?.monthly_subscribed === false &&
+        user?.yearly_subscribed === false && <SubscriptionPage />}
+
+      <div className="relative w-full sm:p-4 lg:p-8 bg-one h-[1000px] overflow-y-auto sm:mt-24">
+        <div className="absolute flex flex-col items-start gap-2 z-30 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
+          {/* <TfiMenuAlt
+            className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50 bg-two"
+            onClick={() => setIsOpen(!isOpen)}
+          />
+          {isOpen && <SideBarMenu setIsOpen={setIsOpen} />} */}
+        </div>
+        <div className="relative w-full">
+          <div className="relative w-full h-44 sm:h-[500px] overflow-hidden shadow-lg">
+            {episodes.length > 0 && episodeImage ? (
+              <Image
+                loading="lazy"
+                src={episodeImage}
+                layout="fill"
+                objectFit="cover"
+                alt="photo"
+                objectPosition="top"
+              />
+            ) : (
+              <LoadingPhoto />
+            )}
+          </div>
+        </div>
+        <div className="flex flex-col justify-start items-center w-full gap-4 my-8">
+          <div
+            onClick={() => {
+              localStorage.removeItem('episodeNumber');
+              setIsTrue(false);
+            }}
+          ></div>
+
+          <h1 className="grow text-lg lg:text-2xl w-full text-white p-2">
+            <span className="text-gray-500 ml-2">#</span>
+            اسم المسلسل <span className="">{episodes[0]?.seriesName}</span>
+          </h1>
+        </div>
+        <div className="my-2 p-2">
+          {episodes.length === 0 && !isLoading && (
+            <Loading myMessage={'😉 لا يوجد نتائج لعرضها'} />
+          )}
+          {episodes.length > 0 && (
+            <div>
+              {episodes.map((episode) => (
+                <div
+                  key={episode.id}
+                  className="flex flex-col items-center justify-start  overflow-hidden"
+                >
+                  <div className={'w-full'}>
+                    <h1 className="text-white text-center p-2">
+                      {episode?.episodeName}
+                    </h1>
+                    <VideoPlayer
+                      videoUrl={episode?.episodeLink}
+                      image={episodeImage}
+                      episodeName={episode?.episodeName}
+                      showAd={isTrue}
+                      onNextEpisode={handleNextEpisode} // تمرير دالة الانتقال للحلقة التالية
+                    />
+                  </div>
+                  <div className="flex justify-between w-full p-4 items-start">
+                    <button
+                      onClick={() => handleNextEpisode(episode?.seriesName)}
+                      className="btn p-1 sm:px-4 sm:py-2 shadow-lg text-white rounded-lg disabled:opacity-50"
+                      disabled={!hasMoreEpisodes} // تعطيل زر الحلقة التالية إذا لم تكن هناك حلقات
+                    >
+                      الحلقة التالية
+                    </button>
+                    <button
+                      onClick={() => handlePreviousEpisode(episode?.seriesName)}
+                      className="btn p-1 sm:px-4 sm:py-2 shadow-lg text-white rounded-lg disabled:opacity-50"
+                      disabled={episodeNumber === 1} // تعطيل زر الحلقة السابقة إذا كانت الحلقة الأولى
+                    >
+                      الحلقة السابقة
+                    </button>
+                  </div>
+                  <ContactUs />
+                </div>
+              ))}
+            </div>
           )}
         </div>
       </div>
-      <div className="flex flex-col justify-start items-center w-full gap-4 my-8">
-        <div
-          onClick={() => {
-            localStorage.removeItem('episodeNumber');
-            setIsTrue(false);
-          }}
-        >
-          {/* <BackButton /> */}
-        </div>
-
-        <h1 className="grow text-lg lg:text-2xl w-full text-white">
-          <span className="text-gray-500 ml-2">#</span>
-          اسم المسلسل <span className="">{episodes[0]?.seriesName}</span>
-        </h1>
-      </div>
-      <div className="my-2 p-2">
-        {episodes.length === 0 && !isLoading && (
-          <Loading myMessage={'😉 لا يوجد نتائج لعرضها'} />
-        )}
-        {episodes.length > 0 && (
-          <div>
-            {episodes.map((episode) => (
-              <div
-                key={episode.id}
-                className="flex flex-col items-center justify-start  overflow-hidden"
-              >
-                <div className={'w-full'}>
-                  <h1 className="text-white text-center p-2">
-                    {episode?.episodeName}
-                  </h1>
-                  <VideoPlayer
-                    videoUrl={episode?.episodeLink}
-                    image={episodeImage}
-                    episodeName={episode?.episodeName}
-                    showAd={isTrue}
-                    onNextEpisode={handleNextEpisode} // تمرير دالة الانتقال للحلقة التالية
-                  />
-                </div>
-                <div className="flex justify-between w-full p-4 items-start">
-                  <button
-                    onClick={() => handleNextEpisode(episode?.seriesName)}
-                    className="btn p-1 sm:px-4 sm:py-2 shadow-lg text-white rounded-lg disabled:opacity-50"
-                    disabled={!hasMoreEpisodes} // تعطيل زر الحلقة التالية إذا لم تكن هناك حلقات
-                  >
-                    الحلقة التالية
-                  </button>
-                  <button
-                    onClick={() => handlePreviousEpisode(episode?.seriesName)}
-                    className="btn p-1 sm:px-4 sm:py-2 shadow-lg text-white rounded-lg disabled:opacity-50"
-                    disabled={episodeNumber === 1} // تعطيل زر الحلقة السابقة إذا كانت الحلقة الأولى
-                  >
-                    الحلقة السابقة
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
+    </>
   );
 }

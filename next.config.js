@@ -1,13 +1,7 @@
-const { setupDevPlatform } = require('@cloudflare/next-on-pages/next-dev');
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    // missingSuspenseWithCSRBailout: false,
-  },
-
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: true, // تجاهل أخطاء TypeScript في وقت البناء
   },
 
   images: {
@@ -27,14 +21,16 @@ const nextConfig = {
       stream: require.resolve('stream-browserify'),
       http: require.resolve('http-browserify'),
       https: require.resolve('https-browserify'),
-      querystring: require.resolve('querystring'), // أضف هذا السطر
-      buffer: require.resolve('buffer'), // إذا كنت بحاجة إلى buffer
+      querystring: require.resolve('querystring'), // polyfill لـ querystring
+      buffer: require.resolve('buffer'), // polyfill لـ buffer إذا كان ضروريًا
     };
     return config;
   },
 };
 
+// استدعاء setupDevPlatform في بيئة التطوير فقط
 if (process.env.NODE_ENV === 'development') {
+  const { setupDevPlatform } = require('@cloudflare/next-on-pages/next-dev');
   setupDevPlatform();
 }
 
